@@ -1,0 +1,53 @@
+---
+title: "Dirty Data Project - Task 1 - Decathlon"
+output: html_notebook
+---
+
+```{r}
+# Load required lbraries
+
+library(tidyverse)
+library(janitor)
+library(here)
+library(DataExplorer)
+```
+
+
+
+```{r}
+# Read in raw data 
+
+decathlon_raw <- read_rds(here("raw_data/decathlon.rds"))
+here()
+
+
+# Clean column names  
+
+decathlon_clean <- decathlon_raw %>%
+  rownames_to_column("athlete") %>% 
+  clean_names() %>% 
+  mutate(athlete = str_to_title(athlete))
+ 
+
+write_csv(decathlon_clean, here("clean_data", "decathlon_clean.csv"))
+
+```
+
+
+```{r}
+# Who had the longest long jump seen in the data?
+
+decathlon_clean
+
+```
+
+
+
+
+1.1.2 Analysis questions
+Who had the longest long jump seen in the data?
+What was the average 100m time in each competition?
+Who had the highest total points across both competitions?
+What was the shot-put scores for the top three competitors in each competition?
+What was the average points for competitors who ran the 400m in less than 50 seconds vs. those than ran 400m in more than 50 seconds?
+
