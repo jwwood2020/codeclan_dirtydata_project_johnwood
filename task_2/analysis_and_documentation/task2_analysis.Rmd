@@ -4,54 +4,76 @@ author: John Wood
 output: html_notebook
 ---
 
-```{r}
+```{r include = FALSE}
 # Load required libraries
 
 library(tidyverse)
 library(here)
-library(janitor)
-library(DataExplorer)
+
 ```
 
-```{r}
-# read in csv files
+```{r include = FALSE}
+# read in clean csv files
 
-cakes <- read_csv(here("raw_data/cake-ingredients-1961.csv"))
-cakes_codes <- read_csv(here("raw_data/cake_ingredient_code.csv"))
+cakes <- read_csv(here("clean_data/cakes_clean.csv"))
+
 ```
 
+## Q1: Which cake has the most cocoa in it?
 
-```{r}
-# change raw table into tidy format
-
-cakes <- cakes %>% 
-  pivot_longer(cols = c("AE":"ZH"),
-               names_to = "code",
-               values_to = "quantity") %>% 
-  rename(cake = Cake)
+```{r echo = FALSE}
+cakes %>% 
+  filter(ingredient == "Cocoa") %>% 
+  slice_max(quantity)
 ```
 
-```{r}
-# replace NAs with 0 
+## Q2 For sponge cake, how many cups of ingredients are used in total?
 
-cakes <- cakes %>% 
-  mutate(quantity = coalesce(quantity, 0))
+```{r echo = FALSE}
+
+cakes %>% 
+  filter(cake == "Sponge" & measure == "cup")  %>% 
+  summarise(total_cups = sum(quantity))
+
 ```
 
-```{r}
-# get names of ingredients and measures
+## Q3 How many ingredients are measured in teaspoons?
 
-cakes <- cakes %>% 
-  left_join(cakes_codes,
-            by = "code")
+```{r echo = FALSE}
+
+cakes %>% 
+  distinct(ingredient, measure) %>% 
+  filter(measure == "teaspoon") %>% 
+  count(measure, name = "num_ingredients")
+ 
 ```
 
-```{r}
-# reorder columns and write to .csv
+## Q4 Which cake has the most unique ingredients?
 
-cakes <- cakes %>% 
-  select(cake, ingredient, quantity, measure)
+```{r echo = FALSE}
+# An ingredient is used if quantity > 0. 
+# The condition quantity > 0 will return TRUE (value = 1).
+# So sum this to get total number of unique ingredients.
 
+cakes %>% 
+  group_by(cake) %>%
+  summarise(unique_ingredients = sum(quantity > 0)) %>% 
+  slice_max(unique_ingredients)
+
+```
+
+## Q5 Which ingredients are used only once?
+
+```{r echo = FALSE}
+
+# An ingredient is used if quantity > 0. 
+# The condition quantity > 0 will return TRUE (value = 1).
+# So sum this to get total number of times used..
+
+cakes %>% 
+  group_by(ingredient) %>%
+  summarise(times_used = sum(quantity > 0)) %>% 
+  filter(times_used == 1)
 
 ```
 

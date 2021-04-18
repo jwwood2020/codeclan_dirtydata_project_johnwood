@@ -218,139 +218,82 @@ pre code {
 
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-text-begin -->
+<div id="q1-which-cake-has-the-most-cocoa-in-it" class="section level2">
+<h2>Q1: Which cake has the most cocoa in it?</h2>
+<!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBMb2FkIHJlcXVpcmVkIGxpYnJhcmllc1xuXG5saWJyYXJ5KHRpZHl2ZXJzZSlcbmBgYCJ9 -->
-<pre class="r"><code># Load required libraries
-
-library(tidyverse)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2RzIG92ZXJ3cml0dGVuIGJ5ICdkYnBseXInOlxuICBtZXRob2QgICAgICAgICBmcm9tXG4gIHByaW50LnRibF9sYXp5ICAgICBcbiAgcHJpbnQudGJsX3NxbCAgICAgIFxu4pSA4pSAIEF0dGFjaGluZyBwYWNrYWdlcyDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIAgdGlkeXZlcnNlIDEuMy4wIOKUgOKUgFxu4pyTIGdncGxvdDIgMy4zLjMgICAgIOKckyBwdXJyciAgIDAuMy40XG7inJMgdGliYmxlICAzLjEuMCAgICAg4pyTIGRwbHlyICAgMS4wLjVcbuKckyB0aWR5ciAgIDEuMS4zICAgICDinJMgc3RyaW5nciAxLjQuMFxu4pyTIHJlYWRyICAgMS40LjAgICAgIOKckyBmb3JjYXRzIDAuNS4xXG7ilIDilIAgQ29uZmxpY3RzIOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgOKUgCB0aWR5dmVyc2VfY29uZmxpY3RzKCkg4pSA4pSAXG54IGRwbHlyOjpmaWx0ZXIoKSBtYXNrcyBzdGF0czo6ZmlsdGVyKClcbnggZHBseXI6OmxhZygpICAgIG1hc2tzIHN0YXRzOjpsYWcoKVxuIn0= -->
-<pre><code>Registered S3 methods overwritten by &#39;dbplyr&#39;:
-  method         from
-  print.tbl_lazy     
-  print.tbl_sql      
-── Attaching packages ──────────────────────────────────────────────────────────────────────────────────── tidyverse 1.3.0 ──
-✓ ggplot2 3.3.3     ✓ purrr   0.3.4
-✓ tibble  3.1.0     ✓ dplyr   1.0.5
-✓ tidyr   1.1.3     ✓ stringr 1.4.0
-✓ readr   1.4.0     ✓ forcats 0.5.1
-── Conflicts ─────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-x dplyr::filter() masks stats::filter()
-x dplyr::lag()    masks stats::lag()</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShoZXJlKVxuYGBgIn0= -->
-<pre class="r"><code>library(here)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiaGVyZSgpIHN0YXJ0cyBhdCAvVXNlcnMvam9obndvb2QvY29kZWNsYW5fZGlydHlkYXRhX3Byb2plY3Rfam9obndvb2QvdGFza18yXG4ifQ== -->
-<pre><code>here() starts at /Users/johnwood/codeclan_dirtydata_project_johnwood/task_2</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShqYW5pdG9yKVxuYGBgIn0= -->
-<pre class="r"><code>library(janitor)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5BdHRhY2hpbmcgcGFja2FnZTog4oCYamFuaXRvcuKAmVxuXG5UaGUgZm9sbG93aW5nIG9iamVjdHMgYXJlIG1hc2tlZCBmcm9tIOKAmHBhY2thZ2U6c3RhdHPigJk6XG5cbiAgICBjaGlzcS50ZXN0LCBmaXNoZXIudGVzdFxuIn0= -->
-<pre><code>
-Attaching package: ‘janitor’
-
-The following objects are masked from ‘package:stats’:
-
-    chisq.test, fisher.test</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShEYXRhRXhwbG9yZXIpXG5gYGAifQ== -->
-<pre class="r"><code>library(DataExplorer)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiUmVnaXN0ZXJlZCBTMyBtZXRob2Qgb3ZlcndyaXR0ZW4gYnkgJ2RhdGEudGFibGUnOlxuICBtZXRob2QgICAgICAgICAgIGZyb21cbiAgcHJpbnQuZGF0YS50YWJsZSAgICAgXG5SZWdpc3RlcmVkIFMzIG1ldGhvZHMgb3ZlcndyaXR0ZW4gYnkgJ2h0bWx0b29scyc6XG4gIG1ldGhvZCAgICAgICAgICAgICAgIGZyb20gICAgICAgICBcbiAgcHJpbnQuaHRtbCAgICAgICAgICAgdG9vbHM6cnN0dWRpb1xuICBwcmludC5zaGlueS50YWcgICAgICB0b29sczpyc3R1ZGlvXG4gIHByaW50LnNoaW55LnRhZy5saXN0IHRvb2xzOnJzdHVkaW9cblJlZ2lzdGVyZWQgUzMgbWV0aG9kIG92ZXJ3cml0dGVuIGJ5ICdodG1sd2lkZ2V0cyc6XG4gIG1ldGhvZCAgICAgICAgICAgZnJvbSAgICAgICAgIFxuICBwcmludC5odG1sd2lkZ2V0IHRvb2xzOnJzdHVkaW9cbiJ9 -->
-<pre><code>Registered S3 method overwritten by &#39;data.table&#39;:
-  method           from
-  print.data.table     
-Registered S3 methods overwritten by &#39;htmltools&#39;:
-  method               from         
-  print.html           tools:rstudio
-  print.shiny.tag      tools:rstudio
-  print.shiny.tag.list tools:rstudio
-Registered S3 method overwritten by &#39;htmlwidgets&#39;:
-  method           from         
-  print.htmlwidget tools:rstudio</code></pre>
-<!-- rnb-output-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNwZWNfdGJsX2RmIiwidGJsX2RmIiwidGJsIiwiZGF0YS5mcmFtZSJdLCJucm93IjoxLCJuY29sIjo0LCJzdW1tYXJ5Ijp7IkEgdGliYmxlIjpbIjEgeCA0Il19fSwicmRmIjoiSDRzSUFBQUFBQUFBQTJWUnNVN0RNQkIxVWllbGtWb1EvRUFIMW1UcHdvZ29Za1ZDSUhXOUprZGoxYlZEN0tpdzhlVXRsMkNqeU5oeS9PN2wzZm44L1BLNFdXV2JqREUyWVp6bUpDSElrcmZYcC95T01SNVRFQkU5Ni9kUEV0MFE0TFN1UmordW54VXVIL1JSTHRlMUxyVUVpNEVpV1JNUEJCWTllWC9ML0JpTE1ndGJpYWJSV2dVbkp3b09hSnljTzVLWHNFZWZLdFN1eFVxZ3NvNjUrT2hBV1dHL1hEdzlJSml1eGFEeXJOWEh3bGVmMDRxLzZYT21FYlpRU2pBbTdMZ0NDOFY3Uy9rVW5ZS1VxVzZzMElxUzR0NjFORWlPMnI3Q1FQejM0ckpUZlZkVlh0YWQydWVyUURwM09CcGgvbnQ4ZkhhbFVsY3FSYlVUeWp2RnNheTF2NU9FTFVvWExNaUp3WWlpYWNXZmpSbXhwckRhZ3RkbDlNQ2VHZTdNVGo4TVl3b3FSQUlBQUE9PSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["cake"],"name":[1],"type":["chr"],"align":["left"]},{"label":["ingredient"],"name":[2],"type":["chr"],"align":["left"]},{"label":["quantity"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["measure"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"One Bowl Chocolate","2":"Cocoa","3":"10","4":"tablespoon"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="q2-for-sponge-cake-how-many-cups-of-ingredients-are-used-in-total" class="section level2">
+<h2>Q2 For sponge cake, how many cups of ingredients are used in total?</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUEyVlF3UTZDTUF3dENCaUpxSW5mQVJjOWVQUmcvQUNqQ1RjejUxVGkzQWlNNk5FdlJ6dXlKVEs3YkczZit0N1c3amI1SXM1akFCaEFnR3NRWWdqaFliOU5Wd0NCajRtSDhFajdGeGJOT3dCZ292MTZETVo2aGFFZ0QxWmpNUHNCWXlVVjRVZmFsTFZUUHFya003T1VCTGYveHVPRDV1cFNUdW8vM1ROUkpMdFV5TWVzZFNoRFdhcENDaVQ1K3VlUlEvWXFyV0JhQXVkeTJnajlxM05LYjQyNHAwdW5OREd4MTQvMTgvN0hTRVZHS21MaVdnaG1zb0RSbTdROWNYSmkzQ1FUbkVRM2lLeXNDcUZzaDRqV1dUYytpMURKTGRMMURPMFhLc0VtRWNnQkFBQT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["total_cups"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"3.5"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="q3-how-many-ingredients-are-measured-in-teaspoons" class="section level2">
+<h2>Q3 How many ingredients are measured in teaspoons?</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVFVWXJDTUJDZHhyWnFRVjNZYzdRL0luZ0E4UUNMZ245THRzMXFzSjJVSk1YOTlPVHFwSnVBSklGazVtWGVtN3o1MnAzV3hha0FnQW1rdENjWmhaQWREL3R5QzVBeVNoS0M1KzcrbzZKUENoejQ4Zll3czRLYlhpbWtlREhpaEVYa0RIa25qQ2N5RDA0N0lnNWErSFNGUS9jdDhheEZJd1ZhRTBuTXRicFZRY2IxWVhjNm5yVGlYblhMallrK1dUVGM4dXBYRTUreVIwU1pxdDVLaFVSaXptRWVrUlB0Rkx3MWlCNVhBN3BmTldWOUdmQmFicUxTTUpIa0xXYi83ZG5UUytWZUtoZDRsaGpta1lyNm9vS25sditJMWlkTG1zUTRpS3JYRW0xd1NLaXByTEk4MUJXMWFnTXllb2JIQ3d2azJCL3dBUUFBIn0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["measure"],"name":[1],"type":["chr"],"align":["left"]},{"label":["num_ingredients"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"teaspoon","2":"8"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="q4-which-cake-has-the-most-unique-ingredients" class="section level2">
+<h2>Q4 Which cake has the most unique ingredients?</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVJ3VTdETUF6TnVyWm9SUU1FUDlBZmFDK1RKczREY1VXYVFOcHQ4dEt3UnV1YzBTWWFSNzU4eFdrVGlTVlJFdnZGN3psMjFxK2JSYmJKR0dOVEZ0T2NKbVN5NVBQanJYaG1MSTdJbVJBOHMrY1BCVDJSWWNHSDRSd3Y1aXZZUVplRHlkZTFPVHJ3OFIxRnZsTG5KbitwRlZjTmFHRkRIZjEyWEZmNkNjSlJkSUYyek9FZ3ZLUkIrVzNFVnVLK0ZaVVVxTHRBWXRhcWMrbGxobHkvdFBWOWZ3bHo4UVk2bjh1RFdRVWF5cStXK09TRmxCdDEwbEloa1NMYmhEUWdUMXFyTUFEaitIOTViOUMrcWlwNGJmQlFMSVBRdWJPamE5dW1qM29ubFRxcFZPQmVvbTlKTEhpdGZFME43RVRqbkR2cXhOQ0k4dFJLMUw1Q1FydFNLdzArTHFPdjhjaFFNN3Y4QVZ3cXA5OFRBZ0FBIn0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["cake"],"name":[1],"type":["chr"],"align":["left"]},{"label":["unique_ingredients"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"Babas au Rhum","2":"11"},{"1":"One Bowl Chocolate","2":"11"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="q5-which-ingredients-are-used-only-once" class="section level2">
+<h2>Q5 Which ingredients are used only once?</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6OCwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI4IHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUEzMVJUVStFTUJEdHNzQUNabDBUL3dCL0FDNGU5T3l1Smw0OG1EWFplREhkMG9WR2FEZWxCSS8rYkUrTFUreEU1V0JLeTh6cm00ODNmZHJzcnBKZFFnaVpFeC9XUEFDVEJNL2IrK3lHRU44RFp3WndiUC92UUxvRXc0SVhzQ04zc2JpbEVsYnIzTlZhYzlxazZwQWFxdUZ6OE5sYWQyM0ZpL1NCY1FlZGI3UUFnSFZhVTJrd1ByNHJ5N1N2aEVGYStOaVpocGZPODhGRGF2VFNDNzZuckFKN09YWmsyLzEzLzVFVVNOcncxc254SEpnSVdXcGVDQzROSWtZQTdiVnJlVEZKRUd2VjU1akVkdUI5d0RFTXcrZTBFcXRwaTVVUVRBcHFhSDdRRUEvZWFSS3lVRWNqbElRZ3owNDluQVRQdE0zZ2hKSEo1YXFUdHFzaVkxVW4zN0xyQ1hYcDdPaVg3WDJYOXdhWEtzVHBjMWtLaVcvaGMxWXAxRlRUUGEveExXRVM0eUR5b3hZL2t3TzB6WTB5RkhrSlV6VWlvMlp5K2dJeVNhd0FoQUlBQUE9PSJ9 -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["ingredient"],"name":[1],"type":["chr"],"align":["left"]},{"label":["times_used"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"Bananas","2":"1"},{"1":"Cream of tartar","2":"1"},{"1":"Crushed Ice","2":"1"},{"1":"Dried currants","2":"1"},{"1":"Egg white","2":"1"},{"1":"Nutmeg","2":"1"},{"1":"Nuts","2":"1"},{"1":"Zwiebach","2":"1"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[8]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyByZWFkIGluIGNzdiBmaWxlc1xuXG5jYWtlcyA8LSByZWFkX2NzdihoZXJlKFwicmF3X2RhdGEvY2FrZS1pbmdyZWRpZW50cy0xOTYxLmNzdlwiKSlcbmBgYCJ9 -->
-<pre class="r"><code># read in csv files
+</div>
 
-cakes &lt;- read_csv(here(&quot;raw_data/cake-ingredients-1961.csv&quot;))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG7ilIDilIAgQ29sdW1uIHNwZWNpZmljYXRpb24g4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5jb2xzKFxuICAuZGVmYXVsdCA9IGNvbF9kb3VibGUoKSxcbiAgQ2FrZSA9IGNvbF9jaGFyYWN0ZXIoKSxcbiAgQk0gPSBjb2xfbG9naWNhbCgpXG4pXG7ihLkgVXNlIGBzcGVjKClgIGZvciB0aGUgZnVsbCBjb2x1bW4gc3BlY2lmaWNhdGlvbnMuXG4ifQ== -->
-<pre><code>
-── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────
-cols(
-  .default = col_double(),
-  Cake = col_character(),
-  BM = col_logical()
-)
-ℹ Use `spec()` for the full column specifications.</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2FrZXNfY29kZXMgPC0gcmVhZF9jc3YoaGVyZShcInJhd19kYXRhL2Nha2VfaW5ncmVkaWVudF9jb2RlLmNzdlwiKSlcbmBgYCJ9 -->
-<pre class="r"><code>cakes_codes &lt;- read_csv(here(&quot;raw_data/cake_ingredient_code.csv&quot;))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG7ilIDilIAgQ29sdW1uIHNwZWNpZmljYXRpb24g4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSA4pSAXG5jb2xzKFxuICBjb2RlID0gY29sX2NoYXJhY3RlcigpLFxuICBpbmdyZWRpZW50ID0gY29sX2NoYXJhY3RlcigpLFxuICBtZWFzdXJlID0gY29sX2NoYXJhY3RlcigpXG4pXG4ifQ== -->
-<pre><code>
-── Column specification ─────────────────────────────────────────────────────────────────────────────────────────────────────
-cols(
-  code = col_character(),
-  ingredient = col_character(),
-  measure = col_character()
-)</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBjaGFuZ2UgcmF3IHRhYmxlIGludG8gdGlkeSBmb3JtYXRcblxuY2FrZXMgPC0gY2FrZXMgJT4lIFxuICBwaXZvdF9sb25nZXIoY29scyA9IGMoXCJBRVwiOlwiWkhcIiksXG4gICAgICAgICAgICAgICBuYW1lc190byA9IFwiY29kZVwiLFxuICAgICAgICAgICAgICAgdmFsdWVzX3RvID0gXCJxdWFudGl0eVwiKSAlPiUgXG4gIHJlbmFtZShjYWtlID0gQ2FrZSlcbmBgYCJ9 -->
-<pre class="r"><code># change raw table into tidy format
-
-cakes &lt;- cakes %&gt;% 
-  pivot_longer(cols = c(&quot;AE&quot;:&quot;ZH&quot;),
-               names_to = &quot;code&quot;,
-               values_to = &quot;quantity&quot;) %&gt;% 
-  rename(cake = Cake)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyByZXBsYWNlIE5BcyB3aXRoIDAgXG5cbmNha2VzIDwtIGNha2VzICU+JSBcbiAgbXV0YXRlKHF1YW50aXR5ID0gY29hbGVzY2UocXVhbnRpdHksIDApKVxuYGBgIn0= -->
-<pre class="r"><code># replace NAs with 0 
-
-cakes &lt;- cakes %&gt;% 
-  mutate(quantity = coalesce(quantity, 0))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBnZXQgbmFtZXMgb2YgaW5ncmVkaWVudHMgYW5kIG1lYXN1cmVzXG5cbmNha2VzIDwtIGNha2VzICU+JSBcbiAgbGVmdF9qb2luKGNha2VzX2NvZGVzLFxuICAgICAgICAgICAgYnkgPSBcImNvZGVcIilcbmBgYCJ9 -->
-<pre class="r"><code># get names of ingredients and measures
-
-cakes &lt;- cakes %&gt;% 
-  left_join(cakes_codes,
-            by = &quot;code&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyByZW9yZGVyIGNvbHVtbnNcblxuY2FrZXMgPC0gY2FrZXMgJT4lIFxuICBzZWxlY3QoY2FrZSwgaW5ncmVkaWVudCwgcXVhbnRpdHksIG1lYXN1cmUpXG5gYGAifQ== -->
-<pre class="r"><code># reorder columns
-
-cakes &lt;- cakes %&gt;% 
-  select(cake, ingredient, quantity, measure)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGlydHkgRGF0YSBQcm9qZWN0IC0gVGFzayAyIC0gQ2FrZXMiCmF1dGhvcjogSm9obiBXb29kCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCmBgYHtyfQojIExvYWQgcmVxdWlyZWQgbGlicmFyaWVzCgpsaWJyYXJ5KHRpZHl2ZXJzZSkKbGlicmFyeShoZXJlKQpsaWJyYXJ5KGphbml0b3IpCmxpYnJhcnkoRGF0YUV4cGxvcmVyKQpgYGAKCmBgYHtyfQojIHJlYWQgaW4gY3N2IGZpbGVzCgpjYWtlcyA8LSByZWFkX2NzdihoZXJlKCJyYXdfZGF0YS9jYWtlLWluZ3JlZGllbnRzLTE5NjEuY3N2IikpCmNha2VzX2NvZGVzIDwtIHJlYWRfY3N2KGhlcmUoInJhd19kYXRhL2Nha2VfaW5ncmVkaWVudF9jb2RlLmNzdiIpKQpgYGAKCgpgYGB7cn0KIyBjaGFuZ2UgcmF3IHRhYmxlIGludG8gdGlkeSBmb3JtYXQKCmNha2VzIDwtIGNha2VzICU+JSAKICBwaXZvdF9sb25nZXIoY29scyA9IGMoIkFFIjoiWkgiKSwKICAgICAgICAgICAgICAgbmFtZXNfdG8gPSAiY29kZSIsCiAgICAgICAgICAgICAgIHZhbHVlc190byA9ICJxdWFudGl0eSIpICU+JSAKICByZW5hbWUoY2FrZSA9IENha2UpCmBgYAoKYGBge3J9CiMgcmVwbGFjZSBOQXMgd2l0aCAwIAoKY2FrZXMgPC0gY2FrZXMgJT4lIAogIG11dGF0ZShxdWFudGl0eSA9IGNvYWxlc2NlKHF1YW50aXR5LCAwKSkKYGBgCgpgYGB7cn0KIyBnZXQgbmFtZXMgb2YgaW5ncmVkaWVudHMgYW5kIG1lYXN1cmVzCgpjYWtlcyA8LSBjYWtlcyAlPiUgCiAgbGVmdF9qb2luKGNha2VzX2NvZGVzLAogICAgICAgICAgICBieSA9ICJjb2RlIikKYGBgCgpgYGB7cn0KIyByZW9yZGVyIGNvbHVtbnMgYW5kIHdyaXRlIHRvIC5jc3YKCmNha2VzIDwtIGNha2VzICU+JSAKICBzZWxlY3QoY2FrZSwgaW5ncmVkaWVudCwgcXVhbnRpdHksIG1lYXN1cmUpCgoKYGBgCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGlydHkgRGF0YSBQcm9qZWN0IC0gVGFzayAyIC0gQ2FrZXMiCmF1dGhvcjogSm9obiBXb29kCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCmBgYHtyIGluY2x1ZGUgPSBGQUxTRX0KIyBMb2FkIHJlcXVpcmVkIGxpYnJhcmllcwoKbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkoaGVyZSkKCmBgYAoKYGBge3IgaW5jbHVkZSA9IEZBTFNFfQojIHJlYWQgaW4gY2xlYW4gY3N2IGZpbGVzCgpjYWtlcyA8LSByZWFkX2NzdihoZXJlKCJjbGVhbl9kYXRhL2Nha2VzX2NsZWFuLmNzdiIpKQoKYGBgCgojIyBRMTogV2hpY2ggY2FrZSBoYXMgdGhlIG1vc3QgY29jb2EgaW4gaXQ/CgpgYGB7ciBlY2hvID0gRkFMU0V9CmNha2VzICU+JSAKICBmaWx0ZXIoaW5ncmVkaWVudCA9PSAiQ29jb2EiKSAlPiUgCiAgc2xpY2VfbWF4KHF1YW50aXR5KQpgYGAKCiMjIFEyIEZvciBzcG9uZ2UgY2FrZSwgaG93IG1hbnkgY3VwcyBvZiBpbmdyZWRpZW50cyBhcmUgdXNlZCBpbiB0b3RhbD8KCmBgYHtyIGVjaG8gPSBGQUxTRX0KCmNha2VzICU+JSAKICBmaWx0ZXIoY2FrZSA9PSAiU3BvbmdlIiAmIG1lYXN1cmUgPT0gImN1cCIpICAlPiUgCiAgc3VtbWFyaXNlKHRvdGFsX2N1cHMgPSBzdW0ocXVhbnRpdHkpKQoKYGBgCgojIyBRMyBIb3cgbWFueSBpbmdyZWRpZW50cyBhcmUgbWVhc3VyZWQgaW4gdGVhc3Bvb25zPwoKYGBge3IgZWNobyA9IEZBTFNFfQoKY2FrZXMgJT4lIAogIGRpc3RpbmN0KGluZ3JlZGllbnQsIG1lYXN1cmUpICU+JSAKICBmaWx0ZXIobWVhc3VyZSA9PSAidGVhc3Bvb24iKSAlPiUgCiAgY291bnQobWVhc3VyZSwgbmFtZSA9ICJudW1faW5ncmVkaWVudHMiKQogCmBgYAoKIyMgUTQgV2hpY2ggY2FrZSBoYXMgdGhlIG1vc3QgdW5pcXVlIGluZ3JlZGllbnRzPwoKYGBge3IgZWNobyA9IEZBTFNFfQojIEFuIGluZ3JlZGllbnQgaXMgdXNlZCBpZiBxdWFudGl0eSA+IDAuIAojIFRoZSBjb25kaXRpb24gcXVhbnRpdHkgPiAwIHdpbGwgcmV0dXJuIFRSVUUgKHZhbHVlID0gMSkuCiMgU28gc3VtIHRoaXMgdG8gZ2V0IHRvdGFsIG51bWJlciBvZiB1bmlxdWUgaW5ncmVkaWVudHMuCgpjYWtlcyAlPiUgCiAgZ3JvdXBfYnkoY2FrZSkgJT4lCiAgc3VtbWFyaXNlKHVuaXF1ZV9pbmdyZWRpZW50cyA9IHN1bShxdWFudGl0eSA+IDApKSAlPiUgCiAgc2xpY2VfbWF4KHVuaXF1ZV9pbmdyZWRpZW50cykKCmBgYAoKIyMgUTUgV2hpY2ggaW5ncmVkaWVudHMgYXJlIHVzZWQgb25seSBvbmNlPwoKYGBge3IgZWNobyA9IEZBTFNFfQoKIyBBbiBpbmdyZWRpZW50IGlzIHVzZWQgaWYgcXVhbnRpdHkgPiAwLiAKIyBUaGUgY29uZGl0aW9uIHF1YW50aXR5ID4gMCB3aWxsIHJldHVybiBUUlVFICh2YWx1ZSA9IDEpLgojIFNvIHN1bSB0aGlzIHRvIGdldCB0b3RhbCBudW1iZXIgb2YgdGltZXMgdXNlZC4uCgpjYWtlcyAlPiUgCiAgZ3JvdXBfYnkoaW5ncmVkaWVudCkgJT4lCiAgc3VtbWFyaXNlKHRpbWVzX3VzZWQgPSBzdW0ocXVhbnRpdHkgPiAwKSkgJT4lIAogIGZpbHRlcih0aW1lc191c2VkID09IDEpCgpgYGAKCg==</div>
 
 
 
