@@ -12,3 +12,31 @@ library(here)
 
 ```
 
+```{r}
+# Read in bird data 
+
+bird_data <- read_csv(here("clean_data/bird_data.csv"))
+```
+
+```{r}
+bird_data %>% 
+  arrange(common_name) %>% 
+  distinct(common_name)
+```
+
+
+
+
+## Q1 Which bird had the most individual sightings?
+```{r}
+
+bird_data %>% 
+  count(common_name, name = 'individual_sightings') %>% 
+  slice_max(individual_sightings, n = 10)
+```
+
+
+Which bird had the highest total count?
+Which bird had the highest total count above a latitude of -30?
+How many different types of birds were only ever seen in groups of 1?
+How many penguins were seen? (Hint: there are many types of penguin)

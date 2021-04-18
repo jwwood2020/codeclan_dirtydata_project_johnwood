@@ -41,6 +41,13 @@ bird_data <- bird_data %>%
   left_join(ship_data,
             by = "id")
 
+# Remove records where there was no sighting
+
+bird_data <- bird_data %>% 
+  filter(common_name != "[NO BIRDS RECORDED]")
+
+
 # Write cleaned data to .csv file
 
 write_csv(bird_data, here("clean_data", "bird_data.csv"))
+
