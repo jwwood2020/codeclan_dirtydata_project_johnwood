@@ -1,4 +1,4 @@
-#
+
 # Script to read in and clean 'decathlon' dataset
 
 
@@ -15,9 +15,6 @@ decathlon_raw <- read_rds(here("raw_data/decathlon.rds"))
 
 
 # Clean data
-#   - change row names to variable "athlete'
-#   - clean column names
-#   - convert upper case athlete names
 
 decathlon_clean <- decathlon_raw %>%
   rownames_to_column("athlete") %>% 
