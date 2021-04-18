@@ -8,38 +8,7 @@ output: html_notebook
 # Load in required libraries
 
 library(tidyverse)
-library(readxl)
-library(janitor)
 library(here)
-
-```
-
-
-```{r}
-# Read in raw data spreadsheet
-
-bird_data <- read_excel(here("raw_data/seabirds.xls"), sheet = "Bird data by record ID")
-ship_data <- read_excel(here("raw_data/seabirds.xls"), sheet = "Ship data by record ID")
-
-```
-
-```{r}
-# Keep only required columns, rename as required
-
-bird_data %>% 
-  select(RECORD,
-         `RECORD ID`,
-         `Species common name (taxon [AGE / SEX / PLUMAGE PHASE])`,
-         `Species  scientific name (taxon [AGE /SEX /  PLUMAGE PHASE])`,
-         `Species abbreviation`,
-         COUNT) %>% 
-
-  rename(record = RECORD,
-         id = `RECORD ID`,
-         common_name = `Species common name (taxon [AGE / SEX / PLUMAGE PHASE])`,
-         scientific_name = `Species  scientific name (taxon [AGE /SEX /  PLUMAGE PHASE])`,
-         abbreviation = `Species abbreviation`,
-         sightings = COUNT)
 
 ```
 
