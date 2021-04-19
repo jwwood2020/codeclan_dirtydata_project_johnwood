@@ -4,7 +4,16 @@ author: John Wood
 output: html_notebook
 ---
 
-```{r include = FALSE}
+This task involves cleaning a raw dataset of decathlon event results and performing analysis on it.
+
+## Cleaning script
+The script reads in the raw dataset and makes the following changes:
+ - the row names are converted into a variable "athlete"
+ - clean and rename variables names for clarity
+ - the data is transformed into a tidy format by assigning the current event columns
+  into a single "event" variable with a corresponding "event_result" variable.
+
+```{r results = "hide"}
 # Load required libraries and read clean data
 
 library(tidyverse)
@@ -15,54 +24,65 @@ decathlon_clean <- read_csv(here("clean_data/decathlon_clean.csv"))
 
 
 ## Question 1:  Who had the longest long jump seen in the data?
-```{r echo = FALSE}
+```{r }
 
 decathlon_clean %>%
-  select(athlete, long_jump, competition) %>% 
-  slice_max(long_jump)
+  filter(event == "long_jump") %>% 
+  slice_max(event_result)
 
 ```
 
 
 ## Question 2: What was the average 100m time in each competition?
-```{r echo = FALSE}
+```{r }
 
 decathlon_clean %>%
+  filter(event == "x100m") %>% 
   group_by(competition) %>% 
-  summarise(avg_100m_time = mean(x100m))
+  summarise(avg_100m_time = mean(event_result))
 
 ```
 
 
 ## Question 3: Who had the highest total points across both competitions?
-```{r echo = FALSE}
+```{r }
 
 decathlon_clean %>% 
+  filter(event == "decathlon_total") %>% 
   group_by(athlete) %>% 
-  summarise(total_points = sum(points)) %>%
+  summarise(total_points = sum(event_result)) %>%
   slice_max(total_points)
   
 ```
 
 
 ## Question 4: What were the shot-put scores for the top three competitors in each competition?
-```{r echo = FALSE}
+_I have interpreted this as the top three competitors overall, i.e. highest total points_
+```{r }
 
 decathlon_clean %>%
-  select(competition, athlete, shot_put) %>% 
-  group_by(competition) %>% 
-  slice_max(shot_put, n = 3)
+  filter(event == 'shot_put' & decathlon_rank <= 3)
   
 ```
 
 
 ## Question 5: What was the average points for competitors who ran the 400m in less than 50 seconds vs. those than ran 400m in more than 50 seconds?
-```{r echo = FALSE}
+```{r }
 
-decathlon_clean %>%
-  mutate(time_for_400m = if_else(x400m <= 50, "Under 50sec", "Over 50sec")) %>% 
+decathlon_clean %>% 
+  group_by(athlete) %>% 
+  # categorise 400m time
+  mutate(time_for_400m = case_when(
+                                  event == "x400m" & event_result <= 50 ~ "Under 50secs",
+                                  event == "x400m" & event_result > 50  ~ "Over 50secs"
+                                  )
+         ) %>% 
+  # populate the athlete's time_for_400m for each athelte record
+  fill(time_for_400m, .direction = "downup") %>% 
+  ungroup() %>% 
+  filter(event == "decathlon_total") %>% 
   group_by(time_for_400m) %>% 
-  summarise(average_points = mean(points))
+  summarise(average_points = mean(event_result))
 
 ```
 

@@ -217,19 +217,35 @@ pre code {
 
 
 <!-- rnb-text-begin -->
+<p>This task involves cleaning a raw dataset of decathlon event results and performing analysis on it.</p>
+<div id="cleaning-script" class="section level2">
+<h2>Cleaning script</h2>
+<p>The script reads in the raw dataset and makes the following changes: - the row names are converted into a variable “athlete” - clean and rename variables names for clarity - the data is transformed into a tidy format by assigning the current event columns into a single “event” variable with a corresponding “event_result” variable.</p>
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+</div>
 <div id="question-1-who-had-the-longest-long-jump-seen-in-the-data" class="section level2">
 <h2>Question 1: Who had the longest long jump seen in the data?</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6Mywic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMyJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVFTMDdETUJDZGZFdU1XcEE0QUNkSUZyQmhnNFFFZ2lVU0tsSjN5TGltQ1RpMmxUaUM3cmdMaCtwdFdzYXBMVVcyWlh2bXpaczNubmw1V0YyVEZRR0FCRkxjU1lZbVpLL0x4L0lHSUkzUmlSQXU3UHVEcEl1UkNYQStDYVQzZ203eFhWanM3bkpIYnZYZkx1Q2NQSXR0cXh2MkZJaG1rcmE4ZCtURWdUTnFhc0VOZDI0aGxOeThmUTZ0ZHNBcFU2M21wakdOa29GZTBhbnZ5bXZPOGNTL2VCMXdoWVdab0gwZi9KS3NxYUhWUjRmNTZPMkRsSm5TdGlJbXhYWU1lWkFjZFZaaEJJNXJHandicFAzVnVtVDFJTC9LcTRBNmQzWTBzWk5qK2ZqZ3BISW5sWE81YWFRZlRzcFpyWHhQZ3I1ejRad0ZUbUljUktXN1JocmZJYUo5WlpTaG5rZVlFaDRaZTRiOVAwNmxyTVlWQWdBQSJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5kZWNhdGhsb25fY2xlYW4gJT4lXG4gIGZpbHRlcihldmVudCA9PSBcImxvbmdfanVtcFwiKSAlPiUgXG4gIHNsaWNlX21heChldmVudF9yZXN1bHQpXG5gYGAifQ== -->
+<pre class="r"><code>
+decathlon_clean %&gt;%
+  filter(event == &quot;long_jump&quot;) %&gt;% 
+  slice_max(event_result)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNwZWNfdGJsX2RmIiwidGJsX2RmIiwidGJsIiwiZGF0YS5mcmFtZSJdLCJucm93IjoxLCJuY29sIjo1LCJzdW1tYXJ5Ijp7IkEgdGliYmxlIjpbIjEgeCA1Il19fSwicmRmIjoiSDRzSUFBQUFBQUFBQTIxUXdVN0RNQXhOdTRiUndBWVNIOEFYdEFlNGNFRkNBc0VSYVFKcHR5cWtZU3RMa3lwTmdkMzRGejVxZjdQaGRNbFVSVGhLYXo4L3gvYWJQY3l2eVp3Z2hFWW9nVFBDNENMOCt2S1kzU0NVeEJCRUFLZjIvdzJrQzV1RmV6NUlKUGVDcmdQcytGbXM2NlppVCtCUExYNkhEamJrcFVMSlJmSFIxYzJCZUxraHQ4M3ZKdWlPSmExNTY2cXhBOGZVTEFVMzNJVW5UTlVOTjVXcGxIVFF0T1RNa3BRc05KVXIveGovNU5LNDRMUVBDczNiVHBpZ2E2clZWKzQ3VCtER1AvRFpnWVhqTVVIYk5saU9sTlRRL0YxRFBVVGJvR1NzR2pzb0ZNWC9xUnJwQURqcnBKMmt6Tml5azZ2c3lqYm8wM3ViT0Q4YStIamZNdDRGdWgxeHVhaWtsdzBMK3NhRkZ3dzI3aGZPRzEwZE5DS0F0cmxSaG5vZVlVcDRwTjhOYmY4QVpqSkovRXdDQUFBPSJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["athlete"],"name":[1],"type":["chr"],"align":["left"]},{"label":["long_jump"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["competition"],"name":[3],"type":["chr"],"align":["left"]}],"data":[{"1":"Clay","2":"7.96","3":"OlympicG"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
+{"columns":[{"label":["athlete"],"name":[1],"type":["chr"],"align":["left"]},{"label":["competition"],"name":[2],"type":["chr"],"align":["left"]},{"label":["decathlon_rank"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["event"],"name":[4],"type":["chr"],"align":["left"]},{"label":["event_result"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"Clay","2":"OlympicG","3":"2","4":"long_jump","5":"7.96"}],"options":{"columns":{"min":{},"max":[10],"total":[5]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
+<pre class="r"><code>NA</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -237,13 +253,23 @@ pre code {
 <h2>Question 2: What was the average 100m time in each competition?</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMlFTMDdETUJDRzNieWdRU2xJbklIdUVoVjF3d3AxVWNFU0NZRlVWcFZ4VFd2aFIrUzRQSFk5Qm5maENpeFlzT0FHM0tKaG5Ob1NPSmJpZjM3UGZPUHg5WFEyem1jNVFpaEdDYXc0QlluUzI1dUw4Z3loSklLZ0IzYmY3aStRZEF6Q21rZmR2anZZbjFLQ0c0TzFqNi80cTZnWnVRUTlzSG1UNGQxSFBIejduSng4ZlcvZXozOENjQ3F4b0UwQVBTQksxTlF3dzVSMFZvR2ZsdlBUMFVqTURSTTBnUFMxZXE0OHFMQ2dEZnphdHQyRzNRakhqZS9telh5QkRhNGVOTFpjRkpic3FkcGVBNG9pTzM4V0ZQZTBKWFRHN3Z0N2VMaVc5bGFMa3F6VzhyRWNCNm1GMDlGL2JkdEhyVU5sRHBWUnVXU1N1aWloWktYOFRCemZVKzZDQWJ4RTl4QlZyWmswZmtKd204b29nMzFlVGhUM1RqY3oydjRDbHExcWJBNENBQUE9In0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5kZWNhdGhsb25fY2xlYW4gJT4lXG4gIGZpbHRlcihldmVudCA9PSBcIngxMDBtXCIpICU+JSBcbiAgZ3JvdXBfYnkoY29tcGV0aXRpb24pICU+JSBcbiAgc3VtbWFyaXNlKGF2Z18xMDBtX3RpbWUgPSBtZWFuKGV2ZW50X3Jlc3VsdCkpXG5gYGAifQ== -->
+<pre class="r"><code>
+decathlon_clean %&gt;%
+  filter(event == &quot;x100m&quot;) %&gt;% 
+  group_by(competition) %&gt;% 
+  summarise(avg_100m_time = mean(event_result))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVBPMDRETVJCMWRtTWdpelpFNGd5azIxVlFHaXFVSW9JU0NZRVVxc2c0SmxqNHMvSTZmTG9jZzd0d2hSUVVGTndndDhneTN0Z0Z0aVg3elp1Wk4vTnVwN054TnNzUVFpbnF3azB4UUlUdjc2NktDNFM2Q1FRZG9IdnVmNGVpVXdDT0hMVC9QbkUwWlpUVWxwZ1EzNGdQV1hGNkRianY2aWJEaDAwNi9QeWVuUDM4cnI4dXQ1RXdWa1N5T2hJOXBscFd6SExMdGZKVVRsNlg4L1BSU000dGx5d1M2Um45VmdhaDNBbXQ0V21hWmhkUG80TFVZVm9nc3dXeHBId3l4T21pdU9WUVYyNE5hRXFjZnh3MWQweEVuS3lVMjJSUjBPZVZlaW5HYmtDYjNwL2M0K1EvZGlPVHhrdGhMM1hBMUpJckZuWVg1SkVKSC9UQmNXdTRyQXhYTmpnQnRpNnR0aVRVWlZTTHdMVGUwTzRQaDIrZmpQWUJBQUE9In0= -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["competition"],"name":[1],"type":["chr"],"align":["left"]},{"label":["avg_100m_time"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Decastar","2":"11.17538"},{"1":"OlympicG","2":"10.91571"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
+<pre class="r"><code>NA</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -251,27 +277,47 @@ pre code {
 <h2>Question 3: Who had the highest total points across both competitions?</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVFRVzdDTUJEY21DU0lpTkJLZlVkeW9RZU9IRkFmVUtqRXJUTEJiU0pjTzdJZHRjZCtxdi9nUmNEYTJGTHE5Y0d6NDUxZDc3eHU5c3RpWHdEQUJGSThrd3doWkcrN2wyb0ZrQkpNRXFSbjl2N0JvaWNFbG53Y1BlUmJkbENjSVZwWWRuMysrd1VYLytTWm9GOU1leW54NUpTYWxqUERmRG8zMGxEKzNzdE9HQjNwWjBwKzE2RkhhWHZZS1ZlTWVGRERxZGJSSDRzak5iVCtVS2pIN0JKSnBySTNuUlFvSW5iQlBCSW55blp3eEQzR2p3K0RzTDg2VmswN2lGUDFISldXSGljalRPN2p5ZFczeW9PUlRIeDJJcGlSc3FhVllTZE9ENHo3WklGT09DUHFYcUZSWVVOa2RlME1ERXdqZVdEY3puQzVBWm12NEtQdkFRQUEifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5kZWNhdGhsb25fY2xlYW4gJT4lIFxuICBmaWx0ZXIoZXZlbnQgPT0gXCJkZWNhdGhsb25fdG90YWxcIikgJT4lIFxuICBncm91cF9ieShhdGhsZXRlKSAlPiUgXG4gIHN1bW1hcmlzZSh0b3RhbF9wb2ludHMgPSBzdW0oZXZlbnRfcmVzdWx0KSkgJT4lXG4gIHNsaWNlX21heCh0b3RhbF9wb2ludHMpXG5gYGAifQ== -->
+<pre class="r"><code>
+decathlon_clean %&gt;% 
+  filter(event == &quot;decathlon_total&quot;) %&gt;% 
+  group_by(athlete) %&gt;% 
+  summarise(total_points = sum(event_result)) %&gt;%
+  slice_max(total_points)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVFTNDRDSVJDdFJ0SFlHVCtKNStqZTZNTGxMQ1p6Z0hGTTNCbHNVVHNpZEFDank3bVU5NWdUcVFWQ29oUUxYajE0VmZYcTUyczV5WmM1QUxTZ2phZEZFUUpkL0g0WE00QTJ3U1JEdXVmdUMzNGFJM0RrNk9XaE0rZHJMVGlpZ1dNLy82OS80T05OVGlVN2NoT2tKSkJkWnZlQ1d4N1NENnNzRTZ0RzFkS2FSTi9UNmx6R0duMVh3M1c1WTZTTktzR01TV2JNTjh5eWNxdFJqOWt0a1hSVlkyc2xVVVNjUVpxSU01MFF3NU4wazJ5S2FuK1NoMkxxR3ZqblovUUR6bDR3ZWJZazkxQ0t4dVZ4dWF0bFhBQVZiTTFGU0FibzJCc3VHNDBMaVU2UU5hVmZWR1FxSlNManZjSHRBUkFkaGdUWEFRQUEifQ== -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["athlete"],"name":[1],"type":["chr"],"align":["left"]},{"label":["total_points"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Sebrle","2":"17110"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
+<pre class="r"><code>NA</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
 <div id="question-4-what-were-the-shot-put-scores-for-the-top-three-competitors-in-each-competition" class="section level2">
 <h2>Question 4: What were the shot-put scores for the top three competitors in each competition?</h2>
+<p><em>I have interpreted this as the top three competitors overall, i.e. highest total points</em></p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbImdyb3VwZWRfZGYiLCJ0YmxfZGYiLCJ0YmwiLCJkYXRhLmZyYW1lIl0sIm5yb3ciOjYsIm5jb2wiOjMsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiNiB4IDMiXSwiR3JvdXBzIjpbImNvbXBldGl0aW9uIFsyXSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUF3dHlpVERtaXVCaVlHQmdabUFCUW1aV0lKT0JOVFRFVGRlQ2dZR0ZDY2hoQkFwemd1Z0tvQ0poc0VvR0JnRWdab05LY0xpa0ppY1dseVFXRWN2M3o2bk1MY2hNZGlmSVI3V0hMYkswS0R1L0RNWUxUazBxeWttRjhid1Rpd3FJa21QMVRVeE9yUVF5K0VCU0RucUo3dXRFcWg0NjZLNzRlcWcvUnROQnQ4dTJZUEYxTGdlREdBMlFnSVArSFNoZENpUTF2cUdGQ1d0eVRtSnhNZFNkTUVHdWxNU1NSTDIwb3NUY1ZEVGxuRVg1NVhwNVFIR1FGbDRnWm1vQUV2Ly8vLytGYmk1TWtRQTBaa0NDM01uNXVRV3BKWmtsbWZsNVVDSDJ4SktNbk5RU21FODVpalB5UytJTFNrdUE3SDlvUnJMbkY0QTBBZzFsRWdZSEtxcWpHWXRBTGdjTFFBQ3lKSDlwSHNoQktickpHYVY1MmJxbWFFcDVvV3cySkRZenhIcVcvK2lSbUpxWG5wa0hjekJMYW5KR1BzelBPWWxKcVRsUURoOHdwTUJob0ZkUWxKbFhBZ3Rab0dpeFhrbCtTU0pNSFZkeWZnNU1CT3huaG44QUVzaHRudE1DQUFBPSJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5kZWNhdGhsb25fY2xlYW4gJT4lXG4gIGZpbHRlcihldmVudCA9PSAnc2hvdF9wdXQnICYgZGVjYXRobG9uX3JhbmsgPD0gMylcbmBgYCJ9 -->
+<pre class="r"><code>
+decathlon_clean %&gt;%
+  filter(event == &#39;shot_put&#39; &amp; decathlon_rank &lt;= 3)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNwZWNfdGJsX2RmIiwidGJsX2RmIiwidGJsIiwiZGF0YS5mcmFtZSJdLCJucm93Ijo2LCJuY29sIjo1LCJzdW1tYXJ5Ijp7IkEgdGliYmxlIjpbIjYgeCA1Il19fSwicmRmIjoiSDRzSUFBQUFBQUFBQTYxU3ZVN0RNQkEyYlpPMmdRSVNPM09SU0VCQ1NDeUlTRlF3TUNEK3BBNlZLamMxTktwclI0NVQ2TWJTaFlXSFlPRVJtSGtKRnQ2QWhRVUdob1pMYWxjbEVxSUR0dnp6ZlhmbiszejJhYTIrWmRVdGhGQWVGYURuRGRnaTQrTDh3TjVCcUpBRE1BZDBPVmx2d0drbHNjSllobUVxZzNsR1dvSVNoUXI3RkErMDVRaUxnUGRuOXZ0NWJxbEdQQnhLTEdiRngzVFFDM3p2OEUrTTBHS1NaKzhkcGMxRmFpMk4xOS80ckw2d3cyVXppT1MvWTZYUHRSOC9udThiYSs3NmNQWHA1RzNvMm5lN3djT0w1VzQycW9uQmRTS1lxNS91eG11S013OW1NTndqb1JKdEtMS0laWWNTcVY5aDN1TzlnRWhmK3B3cGFyRU5aUVVuenBvQ3M2NCtqUFFKMDBvWFV0QVVKSXlvekdRdEMzN3Q2TXdWR0xsYm1PSTQvc3JLOHlnT3RUeE5XbTBzc1hNcElCN1FLQk5TNUVFaUZJSnkweDl4OGtORmhsaUtXS0trYlh1ZGlIWHQ3U1JCYWg2M2l0cWJVM3RqbkRJWForcG1FbmJsTTEwMmcrSVdvYnBnY09QMHdrNGcvRW1OTEdCRFIzS0p0Wi9sY2FxWjlHNW85QTEyMFdVNmZ3TUFBQT09In0= -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["competition"],"name":[1],"type":["chr"],"align":["left"]},{"label":["athlete"],"name":[2],"type":["chr"],"align":["left"]},{"label":["shot_put"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Decastar","2":"Yurkov","3":"15.19"},{"1":"Decastar","2":"Sebrle","3":"14.83"},{"1":"Decastar","2":"Karpov","3":"14.77"},{"1":"OlympicG","2":"Sebrle","3":"16.36"},{"1":"OlympicG","2":"Karpov","3":"15.93"},{"1":"OlympicG","2":"Macey","3":"15.73"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
+{"columns":[{"label":["athlete"],"name":[1],"type":["chr"],"align":["left"]},{"label":["competition"],"name":[2],"type":["chr"],"align":["left"]},{"label":["decathlon_rank"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["event"],"name":[4],"type":["chr"],"align":["left"]},{"label":["event_result"],"name":[5],"type":["dbl"],"align":["right"]}],"data":[{"1":"Sebrle","2":"Decastar","3":"1","4":"shot_put","5":"14.83"},{"1":"Clay","2":"Decastar","3":"2","4":"shot_put","5":"14.26"},{"1":"Karpov","2":"Decastar","3":"3","4":"shot_put","5":"14.77"},{"1":"Sebrle","2":"OlympicG","3":"1","4":"shot_put","5":"16.36"},{"1":"Clay","2":"OlympicG","3":"2","4":"shot_put","5":"15.23"},{"1":"Karpov","2":"OlympicG","3":"3","4":"shot_put","5":"15.93"}],"options":{"columns":{"min":{},"max":[10],"total":[5]},"rows":{"min":[10],"max":[10],"total":[6]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
+<pre class="r"><code>NA</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -279,19 +325,39 @@ pre code {
 <h2>Question 5: What was the average points for competitors who ran the 400m in less than 50 seconds vs. those than ran 400m in more than 50 seconds?</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMlF6MHJFTUJER3M5MjJzcEd1aWkvZ1dXZ3QvZ0dQZXhDdmdyaXd0eExUN0c2eFRVcWFWY0dMVCtFckNOMFgwSXUrMmRaSk54Rk5DODNNTHpQZmRMN2JxOWtabm1HRTBCRDU4QTREQ0ZFd3ZidU9MeEh5UFVnR2dFZjZmSWFpUXdnMDNPL1A3UVcrZVdUeTZDSnRHRFZrZDhyelg0VFFXQmRQdms2TzI3WmRUNzQvWHQ0TzNqOGQ5WUNUaWpXT2NxU0tpbVZ6SWJQek5LME1IQk1ZUnhZc3EwWEJWZVBvaktSNFNxeFdwTFZlNGROMTNjWWRTRXZTMklFVzRwd29rc3dsOUVQbXR1eUlXaFdDUTVPbmZRaWQ1b0hVQ2ozWVBuOHY5MVpjLzFVZTArV0tQOFNuVG1sa1l1OS9yTWQ3blpFS2pWVEkrS0xnekdRK28wdGhkeXJKUFN1dFQrQkViMFJTU3pES2JnaTBTWlJReE5aaEtrcEwrcDNSNWdkdVEzMnFGZ0lBQUE9PSJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5kZWNhdGhsb25fY2xlYW4gJT4lIFxuICBncm91cF9ieShhdGhsZXRlKSAlPiUgXG4gICMgY2F0ZWdvcmlzZSA0MDBtIHRpbWVcbiAgbXV0YXRlKHRpbWVfZm9yXzQwMG0gPSBjYXNlX3doZW4oXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZXZlbnQgPT0gXCJ4NDAwbVwiICYgZXZlbnRfcmVzdWx0IDw9IDUwIH4gXCJVbmRlciA1MHNlY3NcIixcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBldmVudCA9PSBcIng0MDBtXCIgJiBldmVudF9yZXN1bHQgPiA1MCAgfiBcIk92ZXIgNTBzZWNzXCJcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICApXG4gICAgICAgICApICU+JSBcbiAgIyBwb3B1bGF0ZSB0aGUgYXRobGV0ZSdzIHRpbWVfZm9yXzQwMG0gZm9yIGVhY2ggYXRoZWx0ZSByZWNvcmRcbiAgZmlsbCh0aW1lX2Zvcl80MDBtLCAuZGlyZWN0aW9uID0gXCJkb3dudXBcIikgJT4lIFxuICB1bmdyb3VwKCkgJT4lIFxuICBmaWx0ZXIoZXZlbnQgPT0gXCJkZWNhdGhsb25fdG90YWxcIikgJT4lIFxuICBncm91cF9ieSh0aW1lX2Zvcl80MDBtKSAlPiUgXG4gIHN1bW1hcmlzZShhdmVyYWdlX3BvaW50cyA9IG1lYW4oZXZlbnRfcmVzdWx0KSlcbmBgYCJ9 -->
+<pre class="r"><code>
+decathlon_clean %&gt;% 
+  group_by(athlete) %&gt;% 
+  # categorise 400m time
+  mutate(time_for_400m = case_when(
+                                  event == &quot;x400m&quot; &amp; event_result &lt;= 50 ~ &quot;Under 50secs&quot;,
+                                  event == &quot;x400m&quot; &amp; event_result &gt; 50  ~ &quot;Over 50secs&quot;
+                                  )
+         ) %&gt;% 
+  # populate the athlete&#39;s time_for_400m for each athelte record
+  fill(time_for_400m, .direction = &quot;downup&quot;) %&gt;% 
+  ungroup() %&gt;% 
+  filter(event == &quot;decathlon_total&quot;) %&gt;% 
+  group_by(time_for_400m) %&gt;% 
+  summarise(average_points = mean(event_result))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUF3dHlpVERtaXVCaVlHQmdabUFCUW1aV0lKT0JOVFRFVGRlQ2dZR0ZDY2hoQkFwemd1Z0tvQ0poSUFNa0tBQ21JUkxjL21XcFJRcW1Cc1dweWNWUUlaN1F2QlNFR0FNREgwaTV3ejU5clZXclZxMTIyTCtqZXByZzhwMW81clBtSmVhbUZxT1p6VnVTbVpzYW41WmZGRzlpWUpBTEZlUkxCRnFZbUo0YVg1Q2ZtVmRTakdZT1oxRit1UjdNTEY2UVdRMUE0di8vLy8vUUxVek9TU3lHV1FnVDVFcEpMRW5VU3lzQzZnZnkwTFd3NXhlVVpPYm5BVFV4Z1VLQ0ZVMHpZeEdhQUg5cEhzZ2xLYnJKR2FWNTJicG1JQXZBMGhEQUMyVXpvYkpCVmpMOWh4ckZDaldLTFRVdlBUTXZGZWIybk1TazFCeFllQUI5RFBhd1hrRVJNRUJnUGdHS0Z1dVY1SmNrd3RSeEplZm53RVRBZm1QNEJ3QjVGazN4QUFJQUFBPT0ifQ== -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["time_for_400m"],"name":[1],"type":["chr"],"align":["left"]},{"label":["average_points"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Over 50sec","2":"7727.167"},{"1":"Under 50sec","2":"8120.483"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+{"columns":[{"label":["time_for_400m"],"name":[1],"type":["chr"],"align":["left"]},{"label":["average_points"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Over 50secs","2":"7727.167"},{"1":"Under 50secs","2":"8120.483"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
+<pre class="r"><code>NA</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGlydHkgRGF0YSBQcm9qZWN0IC0gVGFzayAxIC0gRGVjYXRobG9uIGFuYWx5c2lzIgphdXRob3I6IEpvaG4gV29vZApvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCgpgYGB7ciBpbmNsdWRlID0gRkFMU0V9CiMgTG9hZCByZXF1aXJlZCBsaWJyYXJpZXMgYW5kIHJlYWQgY2xlYW4gZGF0YQoKbGlicmFyeSh0aWR5dmVyc2UpCmxpYnJhcnkoaGVyZSkKCmRlY2F0aGxvbl9jbGVhbiA8LSByZWFkX2NzdihoZXJlKCJjbGVhbl9kYXRhL2RlY2F0aGxvbl9jbGVhbi5jc3YiKSkKYGBgCgoKIyMgUXVlc3Rpb24gMTogIFdobyBoYWQgdGhlIGxvbmdlc3QgbG9uZyBqdW1wIHNlZW4gaW4gdGhlIGRhdGE/CmBgYHtyIGVjaG8gPSBGQUxTRX0KCmRlY2F0aGxvbl9jbGVhbiAlPiUKICBzZWxlY3QoYXRobGV0ZSwgbG9uZ19qdW1wLCBjb21wZXRpdGlvbikgJT4lIAogIHNsaWNlX21heChsb25nX2p1bXApCgpgYGAKCgojIyBRdWVzdGlvbiAyOiBXaGF0IHdhcyB0aGUgYXZlcmFnZSAxMDBtIHRpbWUgaW4gZWFjaCBjb21wZXRpdGlvbj8KYGBge3IgZWNobyA9IEZBTFNFfQoKZGVjYXRobG9uX2NsZWFuICU+JQogIGdyb3VwX2J5KGNvbXBldGl0aW9uKSAlPiUgCiAgc3VtbWFyaXNlKGF2Z18xMDBtX3RpbWUgPSBtZWFuKHgxMDBtKSkKCmBgYAoKCiMjIFF1ZXN0aW9uIDM6IFdobyBoYWQgdGhlIGhpZ2hlc3QgdG90YWwgcG9pbnRzIGFjcm9zcyBib3RoIGNvbXBldGl0aW9ucz8KYGBge3IgZWNobyA9IEZBTFNFfQoKZGVjYXRobG9uX2NsZWFuICU+JSAKICBncm91cF9ieShhdGhsZXRlKSAlPiUgCiAgc3VtbWFyaXNlKHRvdGFsX3BvaW50cyA9IHN1bShwb2ludHMpKSAlPiUKICBzbGljZV9tYXgodG90YWxfcG9pbnRzKQogIApgYGAKCgojIyBRdWVzdGlvbiA0OiBXaGF0IHdlcmUgdGhlIHNob3QtcHV0IHNjb3JlcyBmb3IgdGhlIHRvcCB0aHJlZSBjb21wZXRpdG9ycyBpbiBlYWNoIGNvbXBldGl0aW9uPwpgYGB7ciBlY2hvID0gRkFMU0V9CgpkZWNhdGhsb25fY2xlYW4gJT4lCiAgc2VsZWN0KGNvbXBldGl0aW9uLCBhdGhsZXRlLCBzaG90X3B1dCkgJT4lIAogIGdyb3VwX2J5KGNvbXBldGl0aW9uKSAlPiUgCiAgc2xpY2VfbWF4KHNob3RfcHV0LCBuID0gMykKICAKYGBgCgoKIyMgUXVlc3Rpb24gNTogV2hhdCB3YXMgdGhlIGF2ZXJhZ2UgcG9pbnRzIGZvciBjb21wZXRpdG9ycyB3aG8gcmFuIHRoZSA0MDBtIGluIGxlc3MgdGhhbiA1MCBzZWNvbmRzIHZzLiB0aG9zZSB0aGFuIHJhbiA0MDBtIGluIG1vcmUgdGhhbiA1MCBzZWNvbmRzPwpgYGB7ciBlY2hvID0gRkFMU0V9CgpkZWNhdGhsb25fY2xlYW4gJT4lCiAgbXV0YXRlKHRpbWVfZm9yXzQwMG0gPSBpZl9lbHNlKHg0MDBtIDw9IDUwLCAiVW5kZXIgNTBzZWMiLCAiT3ZlciA1MHNlYyIpKSAlPiUgCiAgZ3JvdXBfYnkodGltZV9mb3JfNDAwbSkgJT4lIAogIHN1bW1hcmlzZShhdmVyYWdlX3BvaW50cyA9IG1lYW4ocG9pbnRzKSkKCmBgYAoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGlydHkgRGF0YSBQcm9qZWN0IC0gVGFzayAxIC0gRGVjYXRobG9uIGFuYWx5c2lzIgphdXRob3I6IEpvaG4gV29vZApvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKLS0tCgpUaGlzIHRhc2sgaW52b2x2ZXMgY2xlYW5pbmcgYSByYXcgZGF0YXNldCBvZiBkZWNhdGhsb24gZXZlbnQgcmVzdWx0cyBhbmQgcGVyZm9ybWluZyBhbmFseXNpcyBvbiBpdC4KCiMjIENsZWFuaW5nIHNjcmlwdApUaGUgc2NyaXB0IHJlYWRzIGluIHRoZSByYXcgZGF0YXNldCBhbmQgbWFrZXMgdGhlIGZvbGxvd2luZyBjaGFuZ2VzOgogLSB0aGUgcm93IG5hbWVzIGFyZSBjb252ZXJ0ZWQgaW50byBhIHZhcmlhYmxlICJhdGhsZXRlIgogLSBjbGVhbiBhbmQgcmVuYW1lIHZhcmlhYmxlcyBuYW1lcyBmb3IgY2xhcml0eQogLSB0aGUgZGF0YSBpcyB0cmFuc2Zvcm1lZCBpbnRvIGEgdGlkeSBmb3JtYXQgYnkgYXNzaWduaW5nIHRoZSBjdXJyZW50IGV2ZW50IGNvbHVtbnMKICBpbnRvIGEgc2luZ2xlICJldmVudCIgdmFyaWFibGUgd2l0aCBhIGNvcnJlc3BvbmRpbmcgImV2ZW50X3Jlc3VsdCIgdmFyaWFibGUuCgpgYGB7ciByZXN1bHRzID0gImhpZGUifQojIExvYWQgcmVxdWlyZWQgbGlicmFyaWVzIGFuZCByZWFkIGNsZWFuIGRhdGEKCmxpYnJhcnkodGlkeXZlcnNlKQpsaWJyYXJ5KGhlcmUpCgpkZWNhdGhsb25fY2xlYW4gPC0gcmVhZF9jc3YoaGVyZSgiY2xlYW5fZGF0YS9kZWNhdGhsb25fY2xlYW4uY3N2IikpCmBgYAoKCiMjIFF1ZXN0aW9uIDE6ICBXaG8gaGFkIHRoZSBsb25nZXN0IGxvbmcganVtcCBzZWVuIGluIHRoZSBkYXRhPwpgYGB7ciB9CgpkZWNhdGhsb25fY2xlYW4gJT4lCiAgZmlsdGVyKGV2ZW50ID09ICJsb25nX2p1bXAiKSAlPiUgCiAgc2xpY2VfbWF4KGV2ZW50X3Jlc3VsdCkKCmBgYAoKCiMjIFF1ZXN0aW9uIDI6IFdoYXQgd2FzIHRoZSBhdmVyYWdlIDEwMG0gdGltZSBpbiBlYWNoIGNvbXBldGl0aW9uPwpgYGB7ciB9CgpkZWNhdGhsb25fY2xlYW4gJT4lCiAgZmlsdGVyKGV2ZW50ID09ICJ4MTAwbSIpICU+JSAKICBncm91cF9ieShjb21wZXRpdGlvbikgJT4lIAogIHN1bW1hcmlzZShhdmdfMTAwbV90aW1lID0gbWVhbihldmVudF9yZXN1bHQpKQoKYGBgCgoKIyMgUXVlc3Rpb24gMzogV2hvIGhhZCB0aGUgaGlnaGVzdCB0b3RhbCBwb2ludHMgYWNyb3NzIGJvdGggY29tcGV0aXRpb25zPwpgYGB7ciB9CgpkZWNhdGhsb25fY2xlYW4gJT4lIAogIGZpbHRlcihldmVudCA9PSAiZGVjYXRobG9uX3RvdGFsIikgJT4lIAogIGdyb3VwX2J5KGF0aGxldGUpICU+JSAKICBzdW1tYXJpc2UodG90YWxfcG9pbnRzID0gc3VtKGV2ZW50X3Jlc3VsdCkpICU+JQogIHNsaWNlX21heCh0b3RhbF9wb2ludHMpCiAgCmBgYAoKCiMjIFF1ZXN0aW9uIDQ6IFdoYXQgd2VyZSB0aGUgc2hvdC1wdXQgc2NvcmVzIGZvciB0aGUgdG9wIHRocmVlIGNvbXBldGl0b3JzIGluIGVhY2ggY29tcGV0aXRpb24/Cl9JIGhhdmUgaW50ZXJwcmV0ZWQgdGhpcyBhcyB0aGUgdG9wIHRocmVlIGNvbXBldGl0b3JzIG92ZXJhbGwsIGkuZS4gaGlnaGVzdCB0b3RhbCBwb2ludHNfCmBgYHtyIH0KCmRlY2F0aGxvbl9jbGVhbiAlPiUKICBmaWx0ZXIoZXZlbnQgPT0gJ3Nob3RfcHV0JyAmIGRlY2F0aGxvbl9yYW5rIDw9IDMpCiAgCmBgYAoKCiMjIFF1ZXN0aW9uIDU6IFdoYXQgd2FzIHRoZSBhdmVyYWdlIHBvaW50cyBmb3IgY29tcGV0aXRvcnMgd2hvIHJhbiB0aGUgNDAwbSBpbiBsZXNzIHRoYW4gNTAgc2Vjb25kcyB2cy4gdGhvc2UgdGhhbiByYW4gNDAwbSBpbiBtb3JlIHRoYW4gNTAgc2Vjb25kcz8KYGBge3IgfQoKZGVjYXRobG9uX2NsZWFuICU+JSAKICBncm91cF9ieShhdGhsZXRlKSAlPiUgCiAgIyBjYXRlZ29yaXNlIDQwMG0gdGltZQogIG11dGF0ZSh0aW1lX2Zvcl80MDBtID0gY2FzZV93aGVuKAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZXZlbnQgPT0gIng0MDBtIiAmIGV2ZW50X3Jlc3VsdCA8PSA1MCB+ICJVbmRlciA1MHNlY3MiLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgZXZlbnQgPT0gIng0MDBtIiAmIGV2ZW50X3Jlc3VsdCA+IDUwICB+ICJPdmVyIDUwc2VjcyIKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICkKICAgICAgICAgKSAlPiUgCiAgIyBwb3B1bGF0ZSB0aGUgYXRobGV0ZSdzIHRpbWVfZm9yXzQwMG0gZm9yIGVhY2ggYXRoZWx0ZSByZWNvcmQKICBmaWxsKHRpbWVfZm9yXzQwMG0sIC5kaXJlY3Rpb24gPSAiZG93bnVwIikgJT4lIAogIHVuZ3JvdXAoKSAlPiUgCiAgZmlsdGVyKGV2ZW50ID09ICJkZWNhdGhsb25fdG90YWwiKSAlPiUgCiAgZ3JvdXBfYnkodGltZV9mb3JfNDAwbSkgJT4lIAogIHN1bW1hcmlzZShhdmVyYWdlX3BvaW50cyA9IG1lYW4oZXZlbnRfcmVzdWx0KSkKCmBgYAoK</div>
 
 
 

@@ -20,10 +20,9 @@ decathlon_clean <- decathlon_raw %>%
   rownames_to_column("athlete") %>% 
   clean_names() %>% 
   mutate(athlete = str_to_title(athlete)) %>% 
-  rename(shot_putt = shot_put,
-         javelin = javeline,
-         decathlon_total = points,
-         )
+  rename(decathlon_rank = rank,
+         decathlon_total = points) %>% 
+  relocate(decathlon_rank, .after = last_col())
 
 # Tidy data
 # Make "event" and "event_result" variables
