@@ -19,7 +19,21 @@ decathlon_raw <- read_rds(here("raw_data/decathlon.rds"))
 decathlon_clean <- decathlon_raw %>%
   rownames_to_column("athlete") %>% 
   clean_names() %>% 
-  mutate(athlete = str_to_title(athlete))
+  mutate(athlete = str_to_title(athlete)) %>% 
+  rename(shot_putt = shot_put,
+         javelin = javeline,
+         decathlon_total = points,
+         )
+
+# Tidy data
+# Make "event" and "event_result" variables
+# Move variables that are currently columns into these new variables
+
+decathlon_clean <- decathlon_clean %>% 
+  pivot_longer(cols = c("x100m":"decathlon_total"),
+               names_to = "event",
+               values_to = "event_result")
+ 
 
 
 # Write cleaned data to .csv file
