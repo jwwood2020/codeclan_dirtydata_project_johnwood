@@ -24,6 +24,20 @@ bird_data %>%
   distinct(common_name)
 ```
 
+```{r}
+
+pattern <- c("IMM")
+
+
+
+bird_data <- bird_data %>% 
+  mutate(common_name = str_remove_all(common_name, pattern))
+```
+
+
+
+
+
 
 
 

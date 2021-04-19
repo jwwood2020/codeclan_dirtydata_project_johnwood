@@ -1,0 +1,140 @@
+---
+title: "Dirty Data Project - Task 4 - Halloween Candy"
+author: John Wood
+output: html_notebook
+---
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(here)
+library(janitor)
+library(DataExplorer)
+```
+
+
+
+```{r}
+here()
+
+candy_raw_2015 <- read_excel(here("raw_data/boing-boing-candy-2015.xlsx"))
+candy_raw_2016 <- read_excel(here("raw_data/boing-boing-candy-2016.xlsx"))
+candy_raw_2017 <- read_excel(here("raw_data/boing-boing-candy-2017.xlsx"))
+excel_sheets(here("raw_data/boing-boing-candy-2017.xlsx"))
+
+```
+
+
+```{r}
+#explore data set
+
+dim(candy_raw_2015)
+
+candy_raw_2015 %>% 
+  summarise(across(.fns = ~ sum(is.na(.x))))
+
+```
+
+
+
+
+
+
+```{r}
+# Begin cleaning data - 
+
+candy_2015 <- candy_raw_2015 %>% 
+ 
+   # Final columns are not relevant to task questions so can be dropped
+  select(-c("Guess the number of mints in my hand.":"Please estimate the degrees of separation you have from the following folks [Beyoncé Knowles]")) %>% 
+  
+  # Run janitor to get initial clean-up of names
+  clean_names() 
+  
+colnames(candy_2015)
+
+"timestamp"                                                              "how_old_are_you"                                                       
+ [3] "are_you_going_actually_going_trick_or_treating_yourself"                "butterfinger"                                                          
+ [5] "x100_grand_bar"                                                         "anonymous_brown_globs_that_come_in_black_and_orange_wrappers"          
+ [7] "any_full_sized_candy_bar"                                               "black_jacks"                                                           
+ [9] "bonkers"                                                                "bottle_caps"                                                           
+[11] "box_o_raisins"                                                          "brach_products_not_including_candy_corn"                               
+[13] "bubble_gum"                                                             "cadbury_creme_eggs"                                                    
+[15] "candy_corn"                                                             "vials_of_pure_high_fructose_corn_syrup_for_main_lining_into_your_vein" 
+[17] "candy_that_is_clearly_just_the_stuff_given_out_for_free_at_restaurants" "cash_or_other_forms_of_legal_tender"                                   
+[19] "chiclets"                                                               "caramellos"                                                            
+[21] "snickers"                                                               "dark_chocolate_hershey"                                                
+[23] "dental_paraphenalia"                                                    "dots"                                                                  
+[25] "fuzzy_peaches"                                                          "generic_brand_acetaminophen"                                           
+[27] "glow_sticks"                                                            "broken_glow_stick"                                                     
+[29] "goo_goo_clusters"                                                       "good_n_plenty"                                                         
+[31] "gum_from_baseball_cards"                                                "gummy_bears_straight_up"                                               
+[33] "creepy_religious_comics_chick_tracts"                                   "healthy_fruit"                                                         
+[35] "heath_bar"                                                              "hershey_s_kissables"                                                   
+[37] "hershey_s_milk_chocolate"                                               "hugs_actual_physical_hugs"                                             
+[39] "jolly_rancher_bad_flavor"                                               "jolly_ranchers_good_flavor"                                            
+[41] "kale_smoothie"                                                          "kinder_happy_hippo"                                                    
+[43] "kit_kat"                                                                "hard_candy"                                                            
+[45] "lapel_pins"                                                             "lemon_heads"                                                           
+[47] "licorice"                                                               "licorice_not_black"                                                    
+[49] "lindt_truffle"                                                          "lollipops"                                                             
+[51] "mars"                                                                   "mary_janes"                                                            
+[53] "maynards"                                                               "milk_duds"                                                             
+[55] "laffy_taffy"                                                            "minibags_of_chips"                                                     
+[57] "joy_joy_mit_iodine"                                                     "reggie_jackson_bar"                                                    
+[59] "pixy_stix"                                                              "nerds"                                                                 
+[61] "nestle_crunch"                                                          "nown_laters"                                                           
+[63] "pencils"                                                                "milky_way"                                                             
+[65] "reese_s_peanut_butter_cups"                                             "tolberone_something_or_other"                                          
+[67] "runts"                                                                  "junior_mints"                                                          
+[69] "senior_mints"                                                           "mint_kisses"                                                           
+[71] "mint_juleps"                                                            "mint_leaves"                                                           
+[73] "peanut_m_m_s"                                                           "regular_m_ms"                                                          
+[75] "mint_m_ms"                                                              "ribbon_candy"                                                          
+[77] "rolos"                                                                  "skittles"                                                              
+[79] "smarties_american"                                                      "smarties_commonwealth"                                                 
+[81] "chick_o_sticks_we_don_t_know_what_that_is"                              "spotted_dick"                                                          
+[83] "starburst"                                                              "swedish_fish"                                                          
+[85] "sweetums"                                                               "those_odd_marshmallow_circus_peanut_things"                            
+[87] "three_musketeers"                                                       "peterson_brand_sidewalk_chalk"                                         
+[89] "peanut_butter_bars"                                                     "peanut_butter_jars"                                                    
+[91] "trail_mix"                                                              "twix"                                                                  
+[93] "vicodin"                                                                "white_bread"                                                           
+[95] "whole_wheat_anything"                                                   "york_peppermint_patties"                                               
+[97] "please_leave_any_remarks_or_comments_regarding_your_choices"            "please_list_any_items_not_included_above_that_give_you_joy"            
+[99] "please_list_any_items_not_included_above_that_give_you_despair"   
+
+  
+  # Review cleaned names; will need to rename using hard-coding
+  
+rename(candy_2015,
+      age = how_old_are_you,                                                                                                
+      trick_or_treat = are_you_going_actually_going_trick_or_treating_yourself),                                                       
+                                                                                                 
+      brown_globs = anonymous_brown_globs_that_come_in_black_and_orange_wrappers,                                                  
+      any_candy = "[Any full-sized candy bar]",                                                                                      
+      black_jacks = "[Black Jacks]",                                                                                                   
+      bonkers = "[Bonkers]",                                                                                              
+      box_o_raisins = "[Box’o’ Raisins]",                                                                                                 
+      brach_products = "[Brach products (not including candy corn)]",                                                                     
+      bubble_gum = "[Bubble Gum]",                                                                                                    
+      creme_eggs = "[Cadbury Creme Eggs]",                                                                                             
+      candy_corn = "[Candy Corn]",                                                                                                    
+      corn_syrup =  "[Vials of pure high fructose corn syrup, for main-lining into your vein]",                                        
+      free_restaurant_candy = "[Candy that is clearly just the stuff given out for free at restaurants]",                                       
+      cash_tender = "[Cash, or other forms of legal tender]",                                                                           
+      chiclets = "[Chiclets]",                                                                                                      
+      caramellos =  "[Caramellos]",                                                                                                     
+      snickers = "[Snickers]",                                                                                                       
+      dark_hershey = "[Dark Chocolate Hershey]",                                                                                        
+      dental = "[Dental paraphenalia]",                                                                                           
+      dots = "[Dots]",                                                                                                           
+      fuzzy_peaches = "[Fuzzy Peaches]"                                                                                                  
+               
+
+R version 4.0.4 (2021-02-15) -- "Lost Library Book"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin17.0 (64-bit)
+)
+```
+

@@ -68,7 +68,7 @@ cakes %>%
 
 # An ingredient is used if quantity > 0. 
 # The condition quantity > 0 will return TRUE (value = 1).
-# So sum this to get total number of times used..
+# So sum this to get total number of times used.
 
 cakes %>% 
   group_by(ingredient) %>%
