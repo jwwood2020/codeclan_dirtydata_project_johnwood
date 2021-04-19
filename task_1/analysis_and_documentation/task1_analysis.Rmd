@@ -8,12 +8,13 @@ This task involves cleaning a raw dataset of decathlon event results and perform
 
 ## Cleaning script
 The script reads in the raw dataset and makes the following changes:
- - the row names are converted into a variable "athlete"
- - clean and rename variables names for clarity
- - the data is transformed into a tidy format by assigning the current event columns
+
+* the row names are converted into a variable "athlete"
+* clean and rename variables names for clarity
+* the data is transformed into a tidy format by assigning the current event columns
   into a single "event" variable with a corresponding "event_result" variable.
 
-```{r results = "hide"}
+```{r include = FALSE}
 # Load required libraries and read clean data
 
 library(tidyverse)
@@ -25,44 +26,36 @@ decathlon_clean <- read_csv(here("clean_data/decathlon_clean.csv"))
 
 ## Question 1:  Who had the longest long jump seen in the data?
 ```{r }
-
 decathlon_clean %>%
   filter(event == "long_jump") %>% 
   slice_max(event_result)
-
 ```
 
 
 ## Question 2: What was the average 100m time in each competition?
 ```{r }
-
 decathlon_clean %>%
   filter(event == "x100m") %>% 
   group_by(competition) %>% 
   summarise(avg_100m_time = mean(event_result))
-
 ```
 
 
 ## Question 3: Who had the highest total points across both competitions?
 ```{r }
-
 decathlon_clean %>% 
   filter(event == "decathlon_total") %>% 
   group_by(athlete) %>% 
   summarise(total_points = sum(event_result)) %>%
   slice_max(total_points)
-  
 ```
 
 
 ## Question 4: What were the shot-put scores for the top three competitors in each competition?
 _I have interpreted this as the top three competitors overall, i.e. highest total points_
 ```{r }
-
 decathlon_clean %>%
   filter(event == 'shot_put' & decathlon_rank <= 3)
-  
 ```
 
 
@@ -85,4 +78,7 @@ decathlon_clean %>%
   summarise(average_points = mean(event_result))
 
 ```
+
+
+
 
