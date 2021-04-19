@@ -15,126 +15,164 @@ library(DataExplorer)
 
 
 ```{r}
-here()
 
 candy_raw_2015 <- read_excel(here("raw_data/boing-boing-candy-2015.xlsx"))
 candy_raw_2016 <- read_excel(here("raw_data/boing-boing-candy-2016.xlsx"))
 candy_raw_2017 <- read_excel(here("raw_data/boing-boing-candy-2017.xlsx"))
-excel_sheets(here("raw_data/boing-boing-candy-2017.xlsx"))
 
-```
-
-
-```{r}
-#explore data set
-
-dim(candy_raw_2015)
-
-candy_raw_2015 %>% 
-  summarise(across(.fns = ~ sum(is.na(.x))))
 
 ```
 
 
 
+```{r}
+# Start tidying 2017 data
+# Internal ID only appears in 2017 dataset; not needed for joins etc so drop.
+# columns at end are not relevant to the task so drop
+
+candy_2017 <- candy_raw_2017 %>% 
+  select(-c("Internal ID", "Q10: DRESS":"Click Coordinates (x, y)")) %>% 
+  clean_names()
+
+
+```
+
+```{r}
+# Start to make data into tidy format
+
+# Columns starting "Q6 " can be moved into a new column "candy_choice"
+# Values in these columns can be moved into a new column "candy_rating"
+
+candy_2017 <- candy_2017 %>% 
+  pivot_longer(cols = "q6_100_grand_bar":"q6_york_peppermint_patties",
+               names_to = "candy_choice",
+               names_prefix = "q6_",
+               values_to = "candy_rating"
+               )
+
+# rename columns
+
+candy_2017 <- candy_2017 %>% 
+  rename(
+         trick_or_treat = q1_going_out,
+         gender = q2_gender,
+         age = q3_age,
+         country = q4_country,
+         state_province = q5_state_province_county_etc,
+         joy_other = q7_joy_other,
+         despair_other = q8_despair_other,
+         other_comments = q9_other_comments
+         )
+
+# add "year" variable to enable grouping once datasets are joined
+# reorder columns to allow join
+
+candy_2017 <-  candy_2017 %>% 
+  mutate(year = 2017) %>% 
+  select(sort(names(.)))
+```
+
+
+```{r}
+# Same process for 2016 data
+# Timestamp is not a unique identifier so drop
+# End columns not relevant to task so drop
+
+names(candy_raw_2016)
+
+candy_2016 <- candy_raw_2016 %>% 
+  select(-c("Timestamp", "Guess the number of mints in my hand.":"[York Peppermint Patties] Ignore")) %>% 
+  clean_names()
+```
+
+
+```{r}
+# Start to make data into tidy format
+
+# Columns for each candy can be moved into a new column "candy_choice"
+# Values in these columns can be moved into a new column "candy_rating"
+
+names(candy_2016)
+
+candy_2016 <- candy_2016 %>% 
+  pivot_longer(cols = "x100_grand_bar":"york_peppermint_patties",
+               names_to = "candy_choice",
+               values_to = "candy_rating"
+               )
+
+
+# rename columns
+
+candy_2016 <- candy_2016 %>% 
+  rename(
+         trick_or_treat = are_you_going_actually_going_trick_or_treating_yourself,
+         gender = your_gender,
+         age = how_old_are_you,
+         country = which_country_do_you_live_in,
+         state_province = which_state_province_county_do_you_live_in,
+         joy_other = please_list_any_items_not_included_above_that_give_you_joy,
+         despair_other = please_list_any_items_not_included_above_that_give_you_despair,
+         other_comments = please_leave_any_witty_snarky_or_thoughtful_remarks_or_comments_regarding_your_choices
+         )
+
+# add "year" variable to enable grouping once datasets are joined
+# reorder columns to allow join
+
+candy_2016 <-  candy_2016 %>% 
+  mutate(year = 2016) %>% 
+  select(sort(names(.)))
+```
 
 
 
 ```{r}
-# Begin cleaning data - 
+# Same process for 2015 data
+# Timestamp is not a unique identifier so drop
+# End columns not relevant to task so drop
+
+names(candy_raw_2015)
 
 candy_2015 <- candy_raw_2015 %>% 
- 
-   # Final columns are not relevant to task questions so can be dropped
-  select(-c("Guess the number of mints in my hand.":"Please estimate the degrees of separation you have from the following folks [Beyoncé Knowles]")) %>% 
-  
-  # Run janitor to get initial clean-up of names
-  clean_names() 
-  
-colnames(candy_2015)
+  select(-c("Timestamp", "Guess the number of mints in my hand.":"Please estimate the degrees of separation you have from the following folks [Beyoncé Knowles]")) %>% 
+  clean_names()
+```
 
-"timestamp"                                                              "how_old_are_you"                                                       
- [3] "are_you_going_actually_going_trick_or_treating_yourself"                "butterfinger"                                                          
- [5] "x100_grand_bar"                                                         "anonymous_brown_globs_that_come_in_black_and_orange_wrappers"          
- [7] "any_full_sized_candy_bar"                                               "black_jacks"                                                           
- [9] "bonkers"                                                                "bottle_caps"                                                           
-[11] "box_o_raisins"                                                          "brach_products_not_including_candy_corn"                               
-[13] "bubble_gum"                                                             "cadbury_creme_eggs"                                                    
-[15] "candy_corn"                                                             "vials_of_pure_high_fructose_corn_syrup_for_main_lining_into_your_vein" 
-[17] "candy_that_is_clearly_just_the_stuff_given_out_for_free_at_restaurants" "cash_or_other_forms_of_legal_tender"                                   
-[19] "chiclets"                                                               "caramellos"                                                            
-[21] "snickers"                                                               "dark_chocolate_hershey"                                                
-[23] "dental_paraphenalia"                                                    "dots"                                                                  
-[25] "fuzzy_peaches"                                                          "generic_brand_acetaminophen"                                           
-[27] "glow_sticks"                                                            "broken_glow_stick"                                                     
-[29] "goo_goo_clusters"                                                       "good_n_plenty"                                                         
-[31] "gum_from_baseball_cards"                                                "gummy_bears_straight_up"                                               
-[33] "creepy_religious_comics_chick_tracts"                                   "healthy_fruit"                                                         
-[35] "heath_bar"                                                              "hershey_s_kissables"                                                   
-[37] "hershey_s_milk_chocolate"                                               "hugs_actual_physical_hugs"                                             
-[39] "jolly_rancher_bad_flavor"                                               "jolly_ranchers_good_flavor"                                            
-[41] "kale_smoothie"                                                          "kinder_happy_hippo"                                                    
-[43] "kit_kat"                                                                "hard_candy"                                                            
-[45] "lapel_pins"                                                             "lemon_heads"                                                           
-[47] "licorice"                                                               "licorice_not_black"                                                    
-[49] "lindt_truffle"                                                          "lollipops"                                                             
-[51] "mars"                                                                   "mary_janes"                                                            
-[53] "maynards"                                                               "milk_duds"                                                             
-[55] "laffy_taffy"                                                            "minibags_of_chips"                                                     
-[57] "joy_joy_mit_iodine"                                                     "reggie_jackson_bar"                                                    
-[59] "pixy_stix"                                                              "nerds"                                                                 
-[61] "nestle_crunch"                                                          "nown_laters"                                                           
-[63] "pencils"                                                                "milky_way"                                                             
-[65] "reese_s_peanut_butter_cups"                                             "tolberone_something_or_other"                                          
-[67] "runts"                                                                  "junior_mints"                                                          
-[69] "senior_mints"                                                           "mint_kisses"                                                           
-[71] "mint_juleps"                                                            "mint_leaves"                                                           
-[73] "peanut_m_m_s"                                                           "regular_m_ms"                                                          
-[75] "mint_m_ms"                                                              "ribbon_candy"                                                          
-[77] "rolos"                                                                  "skittles"                                                              
-[79] "smarties_american"                                                      "smarties_commonwealth"                                                 
-[81] "chick_o_sticks_we_don_t_know_what_that_is"                              "spotted_dick"                                                          
-[83] "starburst"                                                              "swedish_fish"                                                          
-[85] "sweetums"                                                               "those_odd_marshmallow_circus_peanut_things"                            
-[87] "three_musketeers"                                                       "peterson_brand_sidewalk_chalk"                                         
-[89] "peanut_butter_bars"                                                     "peanut_butter_jars"                                                    
-[91] "trail_mix"                                                              "twix"                                                                  
-[93] "vicodin"                                                                "white_bread"                                                           
-[95] "whole_wheat_anything"                                                   "york_peppermint_patties"                                               
-[97] "please_leave_any_remarks_or_comments_regarding_your_choices"            "please_list_any_items_not_included_above_that_give_you_joy"            
-[99] "please_list_any_items_not_included_above_that_give_you_despair"   
+```{r}
+# Start to make data into tidy format
 
-  
-  # Review cleaned names; will need to rename using hard-coding
-  
-rename(candy_2015,
-      age = how_old_are_you,                                                                                                
-      trick_or_treat = are_you_going_actually_going_trick_or_treating_yourself),                                                       
-                                                                                                 
-      brown_globs = anonymous_brown_globs_that_come_in_black_and_orange_wrappers,                                                  
-      any_candy = "[Any full-sized candy bar]",                                                                                      
-      black_jacks = "[Black Jacks]",                                                                                                   
-      bonkers = "[Bonkers]",                                                                                              
-      box_o_raisins = "[Box’o’ Raisins]",                                                                                                 
-      brach_products = "[Brach products (not including candy corn)]",                                                                     
-      bubble_gum = "[Bubble Gum]",                                                                                                    
-      creme_eggs = "[Cadbury Creme Eggs]",                                                                                             
-      candy_corn = "[Candy Corn]",                                                                                                    
-      corn_syrup =  "[Vials of pure high fructose corn syrup, for main-lining into your vein]",                                        
-      free_restaurant_candy = "[Candy that is clearly just the stuff given out for free at restaurants]",                                       
-      cash_tender = "[Cash, or other forms of legal tender]",                                                                           
-      chiclets = "[Chiclets]",                                                                                                      
-      caramellos =  "[Caramellos]",                                                                                                     
-      snickers = "[Snickers]",                                                                                                       
-      dark_hershey = "[Dark Chocolate Hershey]",                                                                                        
-      dental = "[Dental paraphenalia]",                                                                                           
-      dots = "[Dots]",                                                                                                           
-      fuzzy_peaches = "[Fuzzy Peaches]"                                                                                                  
-               
+# Columns for each candy can be moved into a new column "candy_choice"
+# Values in these columns can be moved into a new column "candy_rating"
 
-R version 4.0.4 (2021-02-15) -- "Lost Library Book"
-Copyright (C) 2021 The R Foundation for Statistical Computing
-Platform: x86_64-apple-darwin17.0 (64-bit)
-)
+names(candy_2015)
+
+candy_2015 <- candy_2015 %>% 
+  pivot_longer(cols = "butterfinger":"york_peppermint_patties",
+               names_to = "candy_choice",
+               values_to = "candy_rating"
+               )
+
+
+# rename columns
+
+candy_2015 <- candy_2015 %>% 
+  rename(
+         trick_or_treat = are_you_going_actually_going_trick_or_treating_yourself,
+         age = how_old_are_you,
+         joy_other = please_list_any_items_not_included_above_that_give_you_joy,
+         despair_other = please_list_any_items_not_included_above_that_give_you_despair,
+         other_comments = please_leave_any_remarks_or_comments_regarding_your_choices
+         )
+
+# add "year" variable to enable grouping once datasets are joined
+# also add missing columns with value NA to ensure join is ok
+# reorder columns to allow join
+
+candy_2015 <-  candy_2015 %>% 
+  mutate(year = 2016,
+         gender = NA,
+         country = NA,
+         state_province = NA) %>% 
+  select(sort(names(.)))
+
 ```
 
