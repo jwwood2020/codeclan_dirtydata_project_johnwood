@@ -88,7 +88,7 @@ candy_2016 <- candy_raw_2016 %>%
   clean_names() %>% 
   rowid_to_column("id") %>% 
   #add identifier to show record is from 2016 dataset
-  mutate(id = str_c("2016_"))
+  mutate(id = str_c("2016_", id))
 ```
 
 
@@ -141,7 +141,7 @@ candy_2015 <- candy_raw_2015 %>%
   clean_names() %>% 
   rowid_to_column("id") %>% 
   #add identifier to show record is from 2015 dataset
-  mutate(id = str_c(id, "2015_"))
+  mutate(id = str_c("2015_", id))
 ```
 
 ```{r}
@@ -208,14 +208,15 @@ candy_all <- candy_all %>%
   mutate(candy_choice = case_when(
                   candy_choice %in% c("anonymous_brown_globs_that_come_in_black_and_orange_wrappers",
                                       "anonymous_brown_globs_that_come_in_black_and_orange_wrappers_a_k_a_mary_janes")
-                                                                        ~ "mary_janes",
-                  candy_choice %in% c("bonkers", "bonkers_the_candy")   ~ "bonkers",
+                                                                         ~ "mary_janes",
+                  candy_choice %in% c("bonkers", "bonkers_the_candy")    ~ "bonkers",
                   candy_choice == "boxo_raisins"                         ~ "box_o_raisins",
                   candy_choice == "dark_chocolate_hershey"               ~ "hersheys_dark_chocolate",
                   candy_choice %in% c("licorice_not_black", "licorice_yes_black")
-                                                                        ~ "licorice",
+                                                                         ~ "licorice",
                   candy_choice == "sweetums_a_friend_to_diabetes"        ~ "sweetums",
-                  candy_choice == "x100_grand_bar"                       ~ "100_grand_bar"
+                  candy_choice == "x100_grand_bar"                       ~ "100_grand_bar",
+                  TRUE                                                   ~ candy_choice
                   )
          )
             
@@ -247,7 +248,7 @@ candy_all %>%
 
 
 ANALYSIS
-# What was the average age of people who are going out trick or treating and the average age of people 3. not going trick or treating?
+# Q2 What was the average age of people who are going out trick or treating and the average age of people not going trick or treating?
 
 # Answering this first requires age data to be cleaned
 
@@ -256,19 +257,19 @@ ANALYSIS
 
 ```{r}
 # Use these to identify what needs cleaning, materiality level of entries still to be cleaned
-candy_age %>% 
+candy_all %>% 
   distinct(id, .keep_all = TRUE) %>% 
   group_by(age) %>% 
   summarise(age_count = n()) %>% 
   arrange(age)
 
-candy_age %>% 
+candy_all %>% 
   distinct(age) %>% 
   arrange(age)
 
 # Clean age values
 
-candy_age <- candy_all %>% 
+candy_all <- candy_all %>% 
   #remove any ".0" or other number combos - cut down number of decimals
   mutate(age = str_remove_all(age, "\\.[0-9]*")) %>% 
   # remove character values
@@ -279,14 +280,43 @@ candy_age <- candy_all %>%
   # however shouldn't make a material difference
   mutate(age = as.numeric(age)) %>% 
   # set bounds on age range: 8 - 100
-  # if outside these bounds then set to NA
+  # if outside these bounds then set to the limit
+  # (tried to set to NA but was getting error)
   mutate(age = case_when(
-          age < 8   ~ NULL,
-          age < 100 ~ age,
-          age >= 100 ~ NULL)
+                  age < 8     ~ 8,
+                  age <= 100  ~ age,
+                  age > 100   ~ 100
+         )
          )
 
 ```
+
+
+#q2 What was the average age of people who are going out trick or treating and the average age of people not going trick or treating?
+
+```{r}
+candy_all %>% 
+  distinct(id, .keep_all = TRUE) %>% 
+  group_by(trick_or_treat) %>% 
+  summarise(average_age = mean(age, na.rm = TRUE))
+
+
+```
+
+
+#q3 For each of joy, despair and meh, which candy bar received the most of these ratings?
+
+```{r}
+candy_all %>% 
+  filter(candy_rating == "JOY") %>% 
+  group_by(candy_choice) %>% 
+  summarise(total_joy = n())
+  
+```
+
+
+
+
 
 
 ```{r}
