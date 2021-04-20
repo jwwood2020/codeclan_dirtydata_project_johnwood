@@ -308,9 +308,20 @@ candy_all %>%
 
 ```{r}
 candy_all %>% 
-  filter(candy_rating == "JOY") %>% 
+  mutate(joy = (candy_rating == "JOY"),
+         despair = (candy_rating == "DESPAIR"),
+         meh = (candy_rating == "MEH")
+         ) %>% 
   group_by(candy_choice) %>% 
-  summarise(total_joy = n())
+  summarise(total_joy = sum(joy, na.rm = TRUE),
+            total_despair = sum(despair, na.rm = TRUE),
+            total_meh = sum(meh, na.rm = TRUE)
+            ) %>% 
+  slice_max(total_joy, n = 5) %>% 
+  slice_max(total_despair, n = 5) %>% 
+  slice_max(total_meh, n = 5)
+ 
+  
   
 ```
 
