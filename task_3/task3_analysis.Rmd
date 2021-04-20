@@ -26,7 +26,7 @@ bird_data %>%
 
 ```{r}
 
-pattern <- c("IMM")
+pattern <- "[SUBAD]|[AD]|[DRK]|[LGHT"
 
 
 

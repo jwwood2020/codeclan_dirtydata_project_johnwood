@@ -27,12 +27,16 @@ candy_raw_2017 <- read_excel(here("raw_data/boing-boing-candy-2017.xlsx"))
 
 ```{r}
 # Start tidying 2017 data
-# Internal ID only appears in 2017 dataset; not needed for joins etc so drop.
+# Internal ID only appears in 2017 dataset; drop this.
+# Make a new ID for each entry that can be consistent with other datasets
 # columns at end are not relevant to the task so drop
 
 candy_2017 <- candy_raw_2017 %>% 
   select(-c("Internal ID", "Q10: DRESS":"Click Coordinates (x, y)")) %>% 
-  clean_names()
+  clean_names() %>% 
+  rowid_to_column("id") %>% 
+  #add identifier to show record is from 2017 dataset
+  mutate(id = str_c("2017_", id))
 
 
 ```
@@ -65,7 +69,7 @@ candy_2017 <- candy_2017 %>%
          )
 
 # add "year" variable to enable grouping once datasets are joined
-# reorder columns to allow join
+# reorder columns to allow join via bind_rows
 
 candy_2017 <-  candy_2017 %>% 
   mutate(year = 2017) %>% 
@@ -76,13 +80,15 @@ candy_2017 <-  candy_2017 %>%
 ```{r}
 # Same process for 2016 data
 # Timestamp is not a unique identifier so drop
+# Make a new ID for each entry that can be consistent with other datasets
 # End columns not relevant to task so drop
-
-names(candy_raw_2016)
 
 candy_2016 <- candy_raw_2016 %>% 
   select(-c("Timestamp", "Guess the number of mints in my hand.":"[York Peppermint Patties] Ignore")) %>% 
-  clean_names()
+  clean_names() %>% 
+  rowid_to_column("id") %>% 
+  #add identifier to show record is from 2016 dataset
+  mutate(id = str_c("2016_"))
 ```
 
 
@@ -92,14 +98,12 @@ candy_2016 <- candy_raw_2016 %>%
 # Columns for each candy can be moved into a new column "candy_choice"
 # Values in these columns can be moved into a new column "candy_rating"
 
-names(candy_2016)
 
 candy_2016 <- candy_2016 %>% 
   pivot_longer(cols = "x100_grand_bar":"york_peppermint_patties",
                names_to = "candy_choice",
                values_to = "candy_rating"
                )
-
 
 # rename columns
 
@@ -116,7 +120,7 @@ candy_2016 <- candy_2016 %>%
          )
 
 # add "year" variable to enable grouping once datasets are joined
-# reorder columns to allow join
+# reorder columns to allow join via bind_rows
 
 candy_2016 <-  candy_2016 %>% 
   mutate(year = 2016) %>% 
@@ -128,13 +132,16 @@ candy_2016 <-  candy_2016 %>%
 ```{r}
 # Same process for 2015 data
 # Timestamp is not a unique identifier so drop
+# Make a new ID for each entry that can be consistent with other datasets
 # End columns not relevant to task so drop
 
-names(candy_raw_2015)
 
 candy_2015 <- candy_raw_2015 %>% 
   select(-c("Timestamp", "Guess the number of mints in my hand.":"Please estimate the degrees of separation you have from the following folks [Beyoncé Knowles]")) %>% 
-  clean_names()
+  clean_names() %>% 
+  rowid_to_column("id") %>% 
+  #add identifier to show record is from 2015 dataset
+  mutate(id = str_c(id, "2015_"))
 ```
 
 ```{r}
@@ -143,7 +150,7 @@ candy_2015 <- candy_raw_2015 %>%
 # Columns for each candy can be moved into a new column "candy_choice"
 # Values in these columns can be moved into a new column "candy_rating"
 
-names(candy_2015)
+
 
 candy_2015 <- candy_2015 %>% 
   pivot_longer(cols = "butterfinger":"york_peppermint_patties",
@@ -165,14 +172,141 @@ candy_2015 <- candy_2015 %>%
 
 # add "year" variable to enable grouping once datasets are joined
 # also add missing columns with value NA to ensure join is ok
-# reorder columns to allow join
+# reorder columns to allow join via bind_rows
 
 candy_2015 <-  candy_2015 %>% 
-  mutate(year = 2016,
+  mutate(year = 2015,
          gender = NA,
          country = NA,
          state_province = NA) %>% 
   select(sort(names(.)))
+
+```
+
+
+```{r}
+# now join all three datasets together by binding columns
+
+candy_all <- bind_rows(candy_2015, candy_2016, candy_2017)
+
+# reorder columns for ease of visual inspection
+
+candy_all <- candy_all %>% 
+  relocate(id, age, gender, trick_or_treat, candy_choice, candy_rating,
+          joy_other, despair_other, other_comments, country, state_province, year)
+
+# can now start trying to clean the data!
+```
+
+```{r}
+# Recode candy_choice entries
+# No easy way of doing this using regex so has to be coded manually :-(
+# Not changing joke entries/long names, only potential duplicates/misspellings
+
+
+candy_all <- candy_all %>% 
+  mutate(candy_choice = case_when(
+                  candy_choice %in% c("anonymous_brown_globs_that_come_in_black_and_orange_wrappers",
+                                      "anonymous_brown_globs_that_come_in_black_and_orange_wrappers_a_k_a_mary_janes")
+                                                                        ~ "mary_janes",
+                  candy_choice %in% c("bonkers", "bonkers_the_candy")   ~ "bonkers",
+                  candy_choice == "boxo_raisins"                         ~ "box_o_raisins",
+                  candy_choice == "dark_chocolate_hershey"               ~ "hersheys_dark_chocolate",
+                  candy_choice %in% c("licorice_not_black", "licorice_yes_black")
+                                                                        ~ "licorice",
+                  candy_choice == "sweetums_a_friend_to_diabetes"        ~ "sweetums",
+                  candy_choice == "x100_grand_bar"                       ~ "100_grand_bar"
+                  )
+         )
+            
+
+
+
+
+```
+
+ANALYSIS
+# 1. What is the total number of candy ratings given across the three years. (number of candy ratings, not number of raters. Don’t count missing values)
+
+```{r}
+
+candy_all %>% 
+  distinct(candy_rating)
+
+# A candy rating occurs when the column candy_rating is populated
+# Four possible entries: "JOY", "DESPAIR", "MEH" and NA
+# So want count of entries that are not NA
+
+
+
+candy_all %>% 
+  summarise(total_number_of_ratings = sum(!is.na(candy_rating)))
+```
+
+
+
+
+ANALYSIS
+# What was the average age of people who are going out trick or treating and the average age of people 3. not going trick or treating?
+
+# Answering this first requires age data to be cleaned
+
+
+
+
+```{r}
+# Use these to identify what needs cleaning, materiality level of entries still to be cleaned
+candy_age %>% 
+  distinct(id, .keep_all = TRUE) %>% 
+  group_by(age) %>% 
+  summarise(age_count = n()) %>% 
+  arrange(age)
+
+candy_age %>% 
+  distinct(age) %>% 
+  arrange(age)
+
+# Clean age values
+
+candy_age <- candy_all %>% 
+  #remove any ".0" or other number combos - cut down number of decimals
+  mutate(age = str_remove_all(age, "\\.[0-9]*")) %>% 
+  # remove character values
+  mutate(age = str_remove_all(age, "[a-zA-Z]*")) %>% 
+  # remove other punctuation 
+  mutate(age = str_remove_all(age, "[ ?!'\\-,>^+():]*")) %>% 
+  # now change variable to be a number. Some records will be coerced to NA
+  # however shouldn't make a material difference
+  mutate(age = as.numeric(age)) %>% 
+  # set bounds on age range: 8 - 100
+  # if outside these bounds then set to NA
+  mutate(age = case_when(
+          age < 8   ~ NULL,
+          age < 100 ~ age,
+          age >= 100 ~ NULL)
+         )
+
+```
+
+
+```{r}
+# Country responses to be cleaned
+
+distinct(candy_all, country)
+
+# to make analysis easier, convert all countries to lower case
+
+candy_country_clean <- candy_all %>% 
+  mutate(country = str_to_lower(country))
+
+
+#start by defining country patterns to look for
+usa_pattern <- c("usa")
+
+candy_country_clean %>% 
+  select(country) %>% 
+  filter(str_detect(country, "usa"))
+
 
 ```
 

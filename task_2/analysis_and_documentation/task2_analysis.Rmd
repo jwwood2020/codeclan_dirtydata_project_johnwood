@@ -4,6 +4,7 @@ author: John Wood
 output: html_notebook
 ---
 
+
 ```{r include = FALSE}
 # Load required libraries
 
@@ -21,7 +22,7 @@ cakes <- read_csv(here("clean_data/cakes_clean.csv"))
 
 ## Q1: Which cake has the most cocoa in it?
 
-```{r echo = FALSE}
+```{r }
 cakes %>% 
   filter(ingredient == "Cocoa") %>% 
   slice_max(quantity)
@@ -29,7 +30,7 @@ cakes %>%
 
 ## Q2 For sponge cake, how many cups of ingredients are used in total?
 
-```{r echo = FALSE}
+```{r }
 
 cakes %>% 
   filter(cake == "Sponge" & measure == "cup")  %>% 
@@ -39,7 +40,7 @@ cakes %>%
 
 ## Q3 How many ingredients are measured in teaspoons?
 
-```{r echo = FALSE}
+```{r }
 
 cakes %>% 
   distinct(ingredient, measure) %>% 
@@ -50,7 +51,7 @@ cakes %>%
 
 ## Q4 Which cake has the most unique ingredients?
 
-```{r echo = FALSE}
+```{r }
 # An ingredient is used if quantity > 0. 
 # The condition quantity > 0 will return TRUE (value = 1).
 # So sum this to get total number of unique ingredients.
@@ -64,7 +65,7 @@ cakes %>%
 
 ## Q5 Which ingredients are used only once?
 
-```{r echo = FALSE}
+```{r }
 
 # An ingredient is used if quantity > 0. 
 # The condition quantity > 0 will return TRUE (value = 1).

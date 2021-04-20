@@ -6,13 +6,17 @@ output: html_notebook
 
 This task involves cleaning a raw dataset of decathlon event results and performing analysis on it.
 
-## Cleaning script
-The script reads in the raw dataset and makes the following changes:
+The raw dataset consists of one row per athlete, with a series of columns with their result in each event.
 
-* the row names are converted into a variable "athlete"
-* clean and rename variables names for clarity
+## Cleaning script
+The script reads in the raw dataset and performs the following actions:
+
+* the row names are converted to a variable "athlete"
+* athlete names are converted to consistent case
+* clean and rename variable names for clarity
 * the data is transformed into a tidy format by assigning the current event columns
-  into a single "event" variable with a corresponding "event_result" variable.
+  into a single "event" variable with a corresponding "event_result" variable. This is done 
+  using the pivot_longer function from the tidyr package.
 
 ```{r include = FALSE}
 # Load required libraries and read clean data
@@ -64,13 +68,13 @@ decathlon_clean %>%
 
 decathlon_clean %>% 
   group_by(athlete) %>% 
-  # categorise 400m time
+  # add 400m time category
   mutate(time_for_400m = case_when(
                                   event == "x400m" & event_result <= 50 ~ "Under 50secs",
                                   event == "x400m" & event_result > 50  ~ "Over 50secs"
                                   )
          ) %>% 
-  # populate the athlete's time_for_400m for each athelte record
+  # populate the athlete's time_for_400m for each athlete record
   fill(time_for_400m, .direction = "downup") %>% 
   ungroup() %>% 
   filter(event == "decathlon_total") %>% 
