@@ -68,7 +68,7 @@ candy_2017 <- candy_2017 %>%
          other_comments = q9_other_comments
          )
 
-# add "year" variable to enable grouping once datasets are joined
+# add "year" variable to enable grouping by year once datasets are joined
 # reorder columns to allow join via bind_rows
 
 candy_2017 <-  candy_2017 %>% 
@@ -119,7 +119,7 @@ candy_2016 <- candy_2016 %>%
          other_comments = please_leave_any_witty_snarky_or_thoughtful_remarks_or_comments_regarding_your_choices
          )
 
-# add "year" variable to enable grouping once datasets are joined
+# add "year" variable to enable grouping by year once datasets are joined
 # reorder columns to allow join via bind_rows
 
 candy_2016 <-  candy_2016 %>% 
@@ -170,7 +170,7 @@ candy_2015 <- candy_2015 %>%
          other_comments = please_leave_any_remarks_or_comments_regarding_your_choices
          )
 
-# add "year" variable to enable grouping once datasets are joined
+# add "year" variable to enable grouping by year once datasets are joined
 # also add missing columns with value NA to ensure join is ok
 # reorder columns to allow join via bind_rows
 
@@ -214,14 +214,40 @@ candy_all <- candy_all %>%
                   candy_choice == "dark_chocolate_hershey"               ~ "hersheys_dark_chocolate",
                   candy_choice %in% c("licorice_not_black", "licorice_yes_black")
                                                                          ~ "licorice",
-                  candy_choice == "sweetums_a_friend_to_diabetes"        ~ "sweetums",
+                  candy_choice == "sweetums_a_friend_to_diabetes"        ~ "sweetums",  #When you think of Pawnee, you think of Sweetums
                   candy_choice == "x100_grand_bar"                       ~ "100_grand_bar",
                   TRUE                                                   ~ candy_choice
                   )
          )
             
+```
 
+```{r}
+# Remove joke entries from the candy_choice observations.
+# Responses to "any_full_sized_candy" are not informative for assessing individual candy choices
+# Therefor I have decided to remove this option from the analysis.
 
+candy_all <- candy_all %>% 
+  filter(!candy_choice %in% c("any_full_sized_candy_bar",
+          "vials_of_pure_high_fructose_corn_syrup_for_main_lining_into_your_vein",
+          "candy_that_is_clearly_just_the_stuff_given_out_for_free_at_restaurants",
+          "cash_or_other_forms_of_legal_tender",
+          "dental_paraphenalia",
+          "generic_brand_acetaminophen",
+          "glow_sticks",
+          "broken_glow_stick",
+          "creepy_religious_comics_chick_tracts",
+          "hugs_actual_physical_hugs",
+          "lapel_pins",
+          "pencils",
+          "peterson_brand_sidewalk_chalk",
+          "vicodin",
+          "white_bread",
+          "whole_wheat_anything",
+          "bonkers_the_board_game",
+          "person_of_interest_season_3_dvd_box_set_not_including_disc_4_with_hilarious_outtakes",
+          "real_housewives_of_orange_county_season_9_blue_ray"
+          ))
 
 
 ```
@@ -238,22 +264,15 @@ candy_all %>%
 # Four possible entries: "JOY", "DESPAIR", "MEH" and NA
 # So want count of entries that are not NA
 
-
-
 candy_all %>% 
   summarise(total_number_of_ratings = sum(!is.na(candy_rating)))
 ```
-
-
 
 
 ANALYSIS
 # Q2 What was the average age of people who are going out trick or treating and the average age of people not going trick or treating?
 
 # Answering this first requires age data to be cleaned
-
-
-
 
 ```{r}
 # Use these to identify what needs cleaning, materiality level of entries still to be cleaned
@@ -277,7 +296,7 @@ candy_all <- candy_all %>%
   # remove other punctuation 
   mutate(age = str_remove_all(age, "[ ?!'\\-,>^+():]*")) %>% 
   # now change variable to be a number. Some records will be coerced to NA
-  # however shouldn't make a material difference
+  # however won't make a material difference
   mutate(age = as.numeric(age)) %>% 
   # set bounds on age range: 8 - 100
   # if outside these bounds then set to the limit
@@ -321,10 +340,68 @@ candy_all %>%
   slice_max(total_despair, n = 5) %>% 
   slice_max(total_meh, n = 5)
  
-  
+ #NEED TO REVISIT THIS 
   
 ```
 
+
+
+How many people rated Starburst as despair
+
+```{r}
+
+candy_all %>% 
+  filter(candy_choice == "starburst" & candy_rating == "DESPAIR") %>% 
+  summarise(total_starburst_despair = n())
+```
+```{r}
+# investigate free text entries in despair_other to find any mention of starburst 
+
+candy_all %>% 
+  distinct(id, .keep_all = TRUE) %>% 
+  select(id, despair_other) %>% 
+  filter(str_detect(despair_other,"starburst"))
+
+# only one record returned, so not worth looking at further
+```
+
+
+For the next three questions, count despair as -1, joy as +1 and meh as 0.
+```{r}
+ #create a new_rating variable using this system:
+candy_all <- candy_all %>% 
+ 
+  mutate(new_rating = case_when(
+                        candy_rating == "JOY"       ~ 1,
+                        candy_rating == "DESPAIR"   ~ -1,
+                        candy_rating == "MEH"       ~ 0,
+                        TRUE                        ~ 0
+                        )
+  )
+```
+
+
+What was the most popular candy bar by this rating system for each gender in the dataset?
+
+```{r}
+candy_all %>% 
+  filter(!is.na(gender) & candy_choice != "any_full_sized_candy_bar") %>% 
+  group_by(gender, candy_choice) %>% 
+  summarise(total_new_rating = sum(new_rating)) %>% 
+  slice_max(total_new_rating)
+```
+
+
+What was the most popular candy bar in each year?
+
+```{r}
+candy_all %>% 
+  group_by(year, candy_choice) %>% 
+  summarise(total_new_rating = sum(new_rating)) %>% 
+  slice_max(total_new_rating)
+```
+
+What was the most popular candy bar by this rating for people in US, Canada, UK and all other countries?
 
 
 
@@ -332,22 +409,102 @@ candy_all %>%
 
 ```{r}
 # Country responses to be cleaned
+# Task only asks for US/Canada/UK/Other
+# Majority of responses are some variant of US
+# Clean these and Canada/UK 
+# Assign all other non-NA responses to "Other" - this is accurate enough for the task.
+
+# Send all country results to lower case and remove punctuation 
+candy_all <- candy_all %>% 
+  mutate(country = str_to_lower(country),
+         country = str_remove_all(country, "[:punct:]")) %>% 
+  arrange(country)
+
+
 
 distinct(candy_all, country)
 
-# to make analysis easier, convert all countries to lower case
 
-candy_country_clean <- candy_all %>% 
-  mutate(country = str_to_lower(country))
+# Visual inspection of the data shows that all entries beginning with "u' are for USA
+# with the exception of "uae", "uk", "united kingdom" and "united kindom"
+# First change these to country = "UK". 
+candy_all <- candy_all %>% 
+  mutate(country = case_when(
+              country %in% c("uk", "united kindom", "united kingdom") ~ "UK",
+              TRUE ~ country)
+         )
+
+# Now convert all entries beginning "u" to "USA"
+candy_all <- candy_all %>% 
+  mutate(country = case_when(
+              str_sub(country, 1, 1) == "u" ~ "USA",
+              TRUE ~ country
+              )
+         )
 
 
-#start by defining country patterns to look for
-usa_pattern <- c("usa")
 
-candy_country_clean %>% 
-  select(country) %>% 
-  filter(str_detect(country, "usa"))
+distinct(candy_all, country)
+
+# Remaining variations of USA:
+usa_variations <- c("ahemamerca",
+                    "alaska",
+                    "america",
+                    "california",
+                    "i pretend to be from canada but i am really from the united states",
+                    "merica",
+                    "murica",
+                    "murrika",
+                    "n america",
+                    "new jersey",
+                    "new york",
+                    "north carolina",
+                    "pittsburgh",
+                    "subcanadian north america merica",
+                    "the best one usa",
+                    "the united states",
+                    "the united states of america",
+                    "the yoo ess of aaayyyyyy"
+                    )
+
+candy_all <- candy_all %>% 
+  mutate(country = case_when(
+                    country %in% usa_variations ~ "USA",
+                    TRUE ~ country
+                    )
+         )
+  
+# Remaining variants of UK:
+
+uk_variations <- c("endland", "england", "scotland")
+
+candy_all <- candy_all %>% 
+  mutate(country = case_when(
+                    country %in% uk_variations ~ "UK",
+                    TRUE ~ country
+                    )
+         )
+
+# Variants of Canada:
+canada_variations <- c("can", "canada", "canada`", "canae", "soviet canuckistan")
+
+candy_all <- candy_all %>% 
+  mutate(country = case_when(
+                    country %in% canada_variations ~ "Canada",
+                    TRUE ~ country
+                    )
+         )
+
+# Change all other countries to "Other"
+
+candy_all <- candy_all %>% 
+  mutate(country = case_when(
+                  country %in% c("Canada", "UK", "USA") ~ country,
+                  TRUE ~ "Other"
+                  )
+         )
 
 
 ```
+
 

@@ -24,7 +24,9 @@ decathlon_clean <- decathlon_raw %>%
          decathlon_total = points) %>% 
   relocate(decathlon_rank, .after = last_col())
 
-# Tidy data
+# Tidy data - 
+# Raw data is in 'wide' format. This could be ok to work with as there are a
+# limited number of variables, but preference is usually for long data so convert it.
 # Make "event" and "event_result" variables
 # Move variables that are currently columns into these new variables
 

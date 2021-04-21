@@ -4,6 +4,14 @@ author: John Wood
 output: html_notebook
 ---
 
+This task looks at a dataset of cake ingredients and performs analysis on it.
+
+### Data cleaning script:
+- The raw datafile was put into a tidy format using the pivot_longer function to
+group the individual ingredient code columns into a single "ingredient" column.
+Corresponding quantity records go into a "quantity" column.
+- This datafile was merged with the associated codes file to obtain the actual ingredient names.
+- The final file was written to a .csv
 
 ```{r include = FALSE}
 # Load required libraries
@@ -31,22 +39,18 @@ cakes %>%
 ## Q2 For sponge cake, how many cups of ingredients are used in total?
 
 ```{r }
-
 cakes %>% 
   filter(cake == "Sponge" & measure == "cup")  %>% 
   summarise(total_cups = sum(quantity))
-
 ```
 
 ## Q3 How many ingredients are measured in teaspoons?
 
 ```{r }
-
 cakes %>% 
   distinct(ingredient, measure) %>% 
   filter(measure == "teaspoon") %>% 
   count(measure, name = "num_ingredients")
- 
 ```
 
 ## Q4 Which cake has the most unique ingredients?
@@ -54,27 +58,22 @@ cakes %>%
 ```{r }
 # An ingredient is used if quantity > 0. 
 # The condition quantity > 0 will return TRUE (value = 1).
-# So sum this to get total number of unique ingredients.
-
+# Sum this to get total number of unique ingredients.
 cakes %>% 
   group_by(cake) %>%
   summarise(unique_ingredients = sum(quantity > 0)) %>% 
   slice_max(unique_ingredients)
-
 ```
 
 ## Q5 Which ingredients are used only once?
 
 ```{r }
-
 # An ingredient is used if quantity > 0. 
 # The condition quantity > 0 will return TRUE (value = 1).
 # So sum this to get total number of times used.
-
 cakes %>% 
   group_by(ingredient) %>%
   summarise(times_used = sum(quantity > 0)) %>% 
   filter(times_used == 1)
-
 ```
 
