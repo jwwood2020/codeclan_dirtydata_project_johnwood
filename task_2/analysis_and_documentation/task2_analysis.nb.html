@@ -239,7 +239,7 @@ pre code {
   filter(ingredient == &quot;Cocoa&quot;) %&gt;% 
   slice_max(quantity)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNwZWNfdGJsX2RmIiwidGJsX2RmIiwidGJsIiwiZGF0YS5mcmFtZSJdLCJucm93IjoxLCJuY29sIjo0LCJzdW1tYXJ5Ijp7IkEgdGliYmxlIjpbIjEgeCA0Il19fSwicmRmIjoiSDRzSUFBQUFBQUFBQTExUlBVL0RNQkIxVXB2U1NDMEkva0FIMW1TQmdSRlJ4SXFFaXRUMW1waldxbXNIMjFGaDQ1ZTNuRk1iUmI3SXlidm5kNTk1ZjFuZEY2dUNFRElpRko4UlEwall4L0sxZkNTRTV1aGtTRS84OXh0RnR3Z29udXZCeGMyYjR2Tm5mWkR6eFZiWFdvTGppWUl0a0FjRU0wOCszWkZvUTFIaFlDMjViYlZXU1dXbVlNOXRrTk5BMGhwMlBJWUt0VEc4RVZ5NXdGeCtkYUNjY0QvQkgrODUyTTd3SlBQRTZFTVZzMC94NUwvNE9xR2xMZFFTckUwN2JzQkI5V2t3SHIxakVqTFdyUk5hWVZEdXQ4YVM0TXdreEZXbmZDZE5XVzg3dFNzZmZJSCsrbXpUZ0xNQnB1ZVMrU21rWWlIVkJWY2JvZUoybUlRMWw4R1o0Y1Q5d0ZWcnhQKzZDbVJ0NWJTRHFDdndSMGFtbjQwYy93RGYwUGJDTEFJQUFBPT0ifQ== -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInNwZWNfdGJsX2RmIiwidGJsX2RmIiwidGJsIiwiZGF0YS5mcmFtZSJdLCJucm93IjoxLCJuY29sIjo0LCJzdW1tYXJ5Ijp7IkEgdGliYmxlIjpbIjEgeCA0Il19fSwicmRmIjoiSDRzSUFBQUFBQUFBQTExUlBVL0RNQkIxVXB2U1NDMEkva0FIMW1UcHdvZ29Za1ZDVk9wNlRVeHIxYldEN2FpdzhjdGJ6cW1OSWwvazVOM3p1OCs4djZ3WHhib2doSXdJeFdmRUVCSzIrbmd0SHdtaE9Ub1owaFAvL1ViUlBRS0s1M1p3Y2ZlbStQeFpIK1Y4dWRPMWx1QjRvbUJMNUFIQnpKTlBEeVRhVUZRNDJFaHVXNjFWVXBrcE9IQWI1RFNRdElZOWo2RkNiUTF2QkZjdU1OZGZIU2duM0Uvd3h3Y090ak04eVR3eCtsakY3Rk04K1MrK3ptaHBDN1VFYTlPT0czQlFmUnFNUisrVWhJeDE2NFJXR0pUN3JiRWtPRE1KY2RNcDMwbFQxcnRPN2N1Rkw5QmZYMndhY0RiQTlGSXlQNGRVTEtTNjRtb3JWTndPazdEaE1qZ3puTGdmdUdxTitGOVhnYXl0bkhZUWRRWCt5TWowczVIVEgzQTRIVEVzQWdBQSJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["cake"],"name":[1],"type":["chr"],"align":["left"]},{"label":["ingredient"],"name":[2],"type":["chr"],"align":["left"]},{"label":["quantity"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["measure"],"name":[4],"type":["chr"],"align":["left"]}],"data":[{"1":"One Bowl Chocolate","2":"Cocoa","3":"10","4":"tablespoon"}],"options":{"columns":{"min":{},"max":[10],"total":[4]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
@@ -253,22 +253,18 @@ pre code {
 <h2>Q2 For sponge cake, how many cups of ingredients are used in total?</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5jYWtlcyAlPiUgXG4gIGZpbHRlcihjYWtlID09IFwiU3BvbmdlXCIgJiBtZWFzdXJlID09IFwiY3VwXCIpICAlPiUgXG4gIHN1bW1hcmlzZSh0b3RhbF9jdXBzID0gc3VtKHF1YW50aXR5KSlcbmBgYCJ9 -->
-<pre class="r"><code>
-cakes %&gt;% 
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2FrZXMgJT4lIFxuICBmaWx0ZXIoY2FrZSA9PSBcIlNwb25nZVwiICYgbWVhc3VyZSA9PSBcImN1cFwiKSAgJT4lIFxuICBzdW1tYXJpc2UodG90YWxfY3VwcyA9IHN1bShxdWFudGl0eSkpXG5gYGAifQ== -->
+<pre class="r"><code>cakes %&gt;% 
   filter(cake == &quot;Sponge&quot; &amp; measure == &quot;cup&quot;)  %&gt;% 
   summarise(total_cups = sum(quantity))</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUEyVlF6UXJDTUF6T2ZxcHM2QlI4anUwaWdrY1A0Z09Jd201U3Q2bkQybzZ0UTQ4KytXWTZXdERha2liNXlKZms2MzZiTHNNMEJBQVBmTHdld1JESThiQ0wxd0MraTRtRGNLRDhDNHNXQXdBUUtiK1pnRDQvaFlUVFI5RmdNUDhDUXlra1phZXNyUnFyUEtqRk16R1VLWnI3eHFmSFkvZk5HRzMrK3VaVTB1UlNJeCt6enFLTVJTVkx3WkhrcXMySlJYWnFDNWkxWEcyU3g5bXQ1ZmQ0cFFab3hhQzNjN1I5eFdxazIrdFdSTGNhRmZ4YThzTHN6dWk1WURxSlVQRWdPS25xa2t1akJORW1HYjdKSUpsZ0JobTBRZmNCazJDUWRMQUJBQUE9In0= -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6MSwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMSJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUEyVlF6UTZDTUF3dVA5TkFGRTE4RHJqb3dhTUg0d01ZVGJpWkNhakV1UkVZMGFOUERuWmtTM1J1NmRwKzZkZjIyMzZiTHNNMEJBQVBmTHdld1JESThiQ0wxd0MraTRtRGNLRDhDNHNXQXdBUUtiK1pnRDQvaFlUVFI5RmdNUDhDUXlra1phZXNyUnFyUEtqRk16R1VLWnI3eHFmSFkvZk5HRzMrK3VaVTB1UlNJeCt6enFLTVJTVkx3WkhrcXMySlJYWnFDNWkxWEcyU3g5bXQ1ZmQ0cFFab3hhQzNjN1I5eFdxazIrdFdSTGNhRmZ4YThzTHN6dWk1WURxSlVQRWdPS25xa2t1akJORW1HYjdKSUpsZ0JobTBRZmNCc1VMT0Y3QUJBQUE9In0= -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["total_cups"],"name":[1],"type":["dbl"],"align":["right"]}],"data":[{"1":"3.5"}],"options":{"columns":{"min":{},"max":[10],"total":[1]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
-<pre class="r"><code>NA</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -276,23 +272,19 @@ cakes %&gt;%
 <h2>Q3 How many ingredients are measured in teaspoons?</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5jYWtlcyAlPiUgXG4gIGRpc3RpbmN0KGluZ3JlZGllbnQsIG1lYXN1cmUpICU+JSBcbiAgZmlsdGVyKG1lYXN1cmUgPT0gXCJ0ZWFzcG9vblwiKSAlPiUgXG4gIGNvdW50KG1lYXN1cmUsIG5hbWUgPSBcIm51bV9pbmdyZWRpZW50c1wiKVxuYGBgIn0= -->
-<pre class="r"><code>
-cakes %&gt;% 
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY2FrZXMgJT4lIFxuICBkaXN0aW5jdChpbmdyZWRpZW50LCBtZWFzdXJlKSAlPiUgXG4gIGZpbHRlcihtZWFzdXJlID09IFwidGVhc3Bvb25cIikgJT4lIFxuICBjb3VudChtZWFzdXJlLCBuYW1lID0gXCJudW1faW5ncmVkaWVudHNcIilcbmBgYCJ9 -->
+<pre class="r"><code>cakes %&gt;% 
   distinct(ingredient, measure) %&gt;% 
   filter(measure == &quot;teaspoon&quot;) %&gt;% 
   count(measure, name = &quot;num_ingredients&quot;)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVFXMnJETUJCY0sxRWVoamFCbk1QK0NaUWVvUFFBb1lYOEZkVldIQkY3WlNTWjVETW5UN3B5SlRDU1FOb2Q3ZXpzNlBCeDNPZkhIQUJtTUtjOTR4UUMvLzc2TE40QjVveVNqT0MxdjI5VXRLUEFnOXZKdzhwSllYdXRrZUtYRVNjc0lYTVVuYlNCeUFLNDdJZzRHQm5TRFE3ZGo4TEd5RnBKZERacHNUYjZXc1kyWG9mZDZYalNTcldxVmxpYkRKblh3b255WkloUDJTT2hMSFh2bEVZaU1lK1FKK1RNSk1CbVFEOUpYVlRuQVMvRm14Y0l6bUh5Qzlra1p2K1M3QmxhOGRCcUliRlJHUCtBdCtKWHRpRjVKY2VqNGJJM0NsMTBRcWd0blhZaTF1V1ZiaU15ZW9QSEg2S2NxZXpZQVFBQSJ9 -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MSwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIxIHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVFXMnJETUJCY0sxRWVoamFCbk1QK0NZVWVvUFFBb1lYOEZkVldIQkY3WlNTWjVETW5UN3B5SlRDU1FOb2Q3ZXpzNlBCeDNPZkhIQUJtTUtjOTR4UUMvLzc2TE40QjVveVNqT0MxdjI5VXRLUEFnOXZKdzhwSllYdXRrZUtYRVNjc0lYTVVuYlNCeUFLNDdJZzRHQm5TRFE3ZGo4TEd5RnBKZERacHNUYjZXc1kyWG9mZDZYalNTcldxVmxpYkRKblh3b255WkloUDJTT2hMSFh2bEVZaU1lK1FKK1RNSk1CbVFEOUpYVlRuQVMvRm14Y0l6bUh5Qzlra1p2K1M3QmxhOGRCcUliRlJHUCtBdCtKWHRpRjVKY2VqNGJJM0NsMTBRcWd0blhZaTF1V1ZiaU15ZW9QSEg4VDZTMG5ZQVFBQSJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["measure"],"name":[1],"type":["chr"],"align":["left"]},{"label":["num_ingredients"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"teaspoon","2":"8"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[1]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
-<pre class="r"><code>NA</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -300,26 +292,22 @@ cakes %&gt;%
 <h2>Q4 Which cake has the most unique ingredients?</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBBbiBpbmdyZWRpZW50IGlzIHVzZWQgaWYgcXVhbnRpdHkgPiAwLiBcbiMgVGhlIGNvbmRpdGlvbiBxdWFudGl0eSA+IDAgd2lsbCByZXR1cm4gVFJVRSAodmFsdWUgPSAxKS5cbiMgU28gc3VtIHRoaXMgdG8gZ2V0IHRvdGFsIG51bWJlciBvZiB1bmlxdWUgaW5ncmVkaWVudHMuXG5cbmNha2VzICU+JSBcbiAgZ3JvdXBfYnkoY2FrZSkgJT4lXG4gIHN1bW1hcmlzZSh1bmlxdWVfaW5ncmVkaWVudHMgPSBzdW0ocXVhbnRpdHkgPiAwKSkgJT4lIFxuICBzbGljZV9tYXgodW5pcXVlX2luZ3JlZGllbnRzKVxuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBBbiBpbmdyZWRpZW50IGlzIHVzZWQgaWYgcXVhbnRpdHkgPiAwLiBcbiMgVGhlIGNvbmRpdGlvbiBxdWFudGl0eSA+IDAgd2lsbCByZXR1cm4gVFJVRSAodmFsdWUgPSAxKS5cbiMgU3VtIHRoaXMgdG8gZ2V0IHRvdGFsIG51bWJlciBvZiB1bmlxdWUgaW5ncmVkaWVudHMuXG5jYWtlcyAlPiUgXG4gIGdyb3VwX2J5KGNha2UpICU+JVxuICBzdW1tYXJpc2UodW5pcXVlX2luZ3JlZGllbnRzID0gc3VtKHF1YW50aXR5ID4gMCkpICU+JSBcbiAgc2xpY2VfbWF4KHVuaXF1ZV9pbmdyZWRpZW50cylcbmBgYCJ9 -->
 <pre class="r"><code># An ingredient is used if quantity &gt; 0. 
 # The condition quantity &gt; 0 will return TRUE (value = 1).
-# So sum this to get total number of unique ingredients.
-
+# Sum this to get total number of unique ingredients.
 cakes %&gt;% 
   group_by(cake) %&gt;%
   summarise(unique_ingredients = sum(quantity &gt; 0)) %&gt;% 
   slice_max(unique_ingredients)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVJ3VTdETUF6TnVnYTBvZ0dDSCtnUHRKY2R4bmtncmtnVFNMdE5YaHZXYUowejBrVGp5SmV2T0cxeVdGS2xzVi84M3F2ZDlkdG1rVzB5eHRpVXBmUk1PWVdNZjMyK0Z5K01wUWtsRTRKbjd2eWxvbWNLSFBnNG5PUEZmQVU3NkhLdyticXhSdzgrZmFESVYrcmM1cStOcWxRTFJyaFNUNzhiOTVVK1J6aUtMdEpPS3ppSUlHbFIvbGl4bGJqWG9wWUNUUmRKekxRNmwwRm04UHFqVjkvM2w5aXJhcUVMWGdITWFqQlFmbXZpVXhaVGJ0WEpTSVZFU3R3UWVFU2U2QWg0c09pK3BDNnF4dUtoV0RxRDRYcGNjeDhuMTdHelRIb3Z4YjNVamNDOXhEQUczc0pPdEQ2NXA0Nkhoc3VUbG1oQ0o0UjJwVkVHUWwxR3Z5QWdRMi9zOGcrVlRjenord0VBQUE9PSJ9 -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVJ3VTdETUF6TnVnYTBvZ0dDSCtnUHRKZEpFK2VCdUNKTklPMDJlVzFZbzNYT1NCT05JMSsrNHJUSllVbVZ4bjd4ZTY5MjEyK2JSYmJKR0dOVGx0SXo1UlF5L3ZYNVhyd3dsaWFVVEFpZXVmT1hpcDRwY09EamNJNFg4eFhzb012QjV1dkdIajM0OUlFaVg2bHptNzgycWxJdEdPRktQZjF1M0ZmNkhPRW91a2c3cmVBZ2dxUkYrV1BGVnVKZWkxb0tORjBrTWRQcVhBYVp3ZXVQWG4zZlgyS3Zxb1V1ZUFVd3E4RkErYTJKVDFsTXVWVW5JeFVTS1hGRDRCRjVvaVBnd2FMN2tycW9Hb3VIWXVrTWh1dHh6WDJjWE1mT011bTlGUGRTTndMM0VzTVllQXM3MGZya25qb2VHaTVQV3FJSm5SRGFsVVlaQ0hVWi9ZS0FETDJ4eXorM2I1S1Erd0VBQUE9PSJ9 -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["cake"],"name":[1],"type":["chr"],"align":["left"]},{"label":["unique_ingredients"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"Babas au Rhum","2":"11"},{"1":"One Bowl Chocolate","2":"11"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
-<pre class="r"><code>NA</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 </div>
@@ -327,27 +315,22 @@ cakes %&gt;%
 <h2>Q5 Which ingredients are used only once?</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIEFuIGluZ3JlZGllbnQgaXMgdXNlZCBpZiBxdWFudGl0eSA+IDAuIFxuIyBUaGUgY29uZGl0aW9uIHF1YW50aXR5ID4gMCB3aWxsIHJldHVybiBUUlVFICh2YWx1ZSA9IDEpLlxuIyBTbyBzdW0gdGhpcyB0byBnZXQgdG90YWwgbnVtYmVyIG9mIHRpbWVzIHVzZWQuXG5cbmNha2VzICU+JSBcbiAgZ3JvdXBfYnkoaW5ncmVkaWVudCkgJT4lXG4gIHN1bW1hcmlzZSh0aW1lc191c2VkID0gc3VtKHF1YW50aXR5ID4gMCkpICU+JSBcbiAgZmlsdGVyKHRpbWVzX3VzZWQgPT0gMSlcbmBgYCJ9 -->
-<pre class="r"><code>
-# An ingredient is used if quantity &gt; 0. 
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBBbiBpbmdyZWRpZW50IGlzIHVzZWQgaWYgcXVhbnRpdHkgPiAwLiBcbiMgVGhlIGNvbmRpdGlvbiBxdWFudGl0eSA+IDAgd2lsbCByZXR1cm4gVFJVRSAodmFsdWUgPSAxKS5cbiMgU28gc3VtIHRoaXMgdG8gZ2V0IHRvdGFsIG51bWJlciBvZiB0aW1lcyB1c2VkLlxuY2FrZXMgJT4lIFxuICBncm91cF9ieShpbmdyZWRpZW50KSAlPiVcbiAgc3VtbWFyaXNlKHRpbWVzX3VzZWQgPSBzdW0ocXVhbnRpdHkgPiAwKSkgJT4lIFxuICBmaWx0ZXIodGltZXNfdXNlZCA9PSAxKVxuYGBgIn0= -->
+<pre class="r"><code># An ingredient is used if quantity &gt; 0. 
 # The condition quantity &gt; 0 will return TRUE (value = 1).
 # So sum this to get total number of times used.
-
 cakes %&gt;% 
   group_by(ingredient) %&gt;%
   summarise(times_used = sum(quantity &gt; 0)) %&gt;% 
   filter(times_used == 1)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6OCwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI4IHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUEzMlJ3VTdETUF5RzA2NWhheEFNaVJmb0M2d1hMcHpaUU9MQ0FURnA0b0t5TkdzajJuUktVcFVqajgxcHhTbXhFRDJnTkszOTFYYjhPOCtiM1EzYk1VTElqQ1N3WmhSTVFyY3ZENnRiUXBJWW5BaHc2cjhmRUhRTmhvZFhzQmZoeC95T2ExZzJ1TXUxa2J6SjJrUG11SUVuNFBPMTZXd2xpK3hSeUlBdU4wWUJFSjB4WER2TVQrL0xNdXNyNVREczdLbHpqU3lEbDRDSG9ZdlhYc2s5RnhYWUYyTkh2dDEvOXg5SlZQTkcyaUFuRHBBcFhScFpLS2tkRXFjZzdLMnpzcGdVU0UzYjUxakVkeEIvd21zWWhxL3BTYUxtRms5Q3lBcnVlSDR3a0EvZWFaSXliNDlPdFJxU1lqOTFPa21PekFRc08rMDdLVmFpNnZTN3Z6N0NnbTRTdW92Q2pOQ09mNDZNaDFDSzRzU2xMcFhHK2RPYTcyV05kd2FLUjhINTBhamZDUUcxdVdzZHh6Z20yaHJKcUkyY3ZnSEFHV09aYkFJQUFBPT0ifQ== -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6OCwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyI4IHggMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUEzMlJ3VTdETUF5RzA2NWhheEVNaVJmb0M3UVhEbkJtQTRrTEJ3VFN4QVZsYWRaR3RNbVVwQnBISHB2VGlsTmlJWHBBYVZyN3F4MzdkNTdXbTZ0c2t4RkNaaVNCTmFOZ0V2cnlmRi9jRUpMRTRFU0FVLy85Z0tCTE1EeThnTDBJUCthM1RNR3l3VjJ1akdCZHJuZTVZd2FlZ0U5WHByZU5xUElITGdJNlh4c0pnUGZHTU9Vd1A3MnI2L3pRU0lkaEo0Kzk2MFFkdkFROERGMjhIcVRZTXQ2QWZUWjI1TnY5ZC8rUlJCWHJoQTF5NGdBenFXb2pLaW1VUStJa2hMMzFWbFNUQTFLakR5VWU0anVJUCtFMURNUFh0Qkp2bWNWS0NMT0tPVmJ1RE9TRGQ1eWt6UFhlU2EwZ0tmWlRwNVBreUV6QXNsZStrNnJnVGEvZWkydGZJT2dtb2Jzb3pBanQrS2RrUElTaktFNWNxRm9xbkQ5dDJWYTBlR2VnZUJSYzdvMzhuUkJRV3pydEdNWmxYTGRJUm0zaytBMzk3SnZHYkFJQUFBPT0ifQ== -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
 {"columns":[{"label":["ingredient"],"name":[1],"type":["chr"],"align":["left"]},{"label":["times_used"],"name":[2],"type":["int"],"align":["right"]}],"data":[{"1":"Bananas","2":"1"},{"1":"Cream of tartar","2":"1"},{"1":"Crushed Ice","2":"1"},{"1":"Dried currants","2":"1"},{"1":"Egg white","2":"1"},{"1":"Nutmeg","2":"1"},{"1":"Nuts","2":"1"},{"1":"Zwiebach","2":"1"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[8]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
-<pre class="r"><code>NA</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->

@@ -205,7 +205,7 @@ candy_all <- candy_all %>%
 
 # Remove joke entries from the candy_choice observations.
 # Responses to "any_full_sized_candy" are not informative for assessing individual candy choices
-# Therefore I have decided to remove this option from the analysis.
+# therefore I have decided to remove this option from the analysis.
 
 candy_all <- candy_all %>%
   filter(!candy_choice %in% c(
@@ -259,7 +259,7 @@ candy_all <- candy_all %>%
 
 # the task only asks for US/Canada/UK/Other.
 # vast majority of responses are some variant of US.
-# clean these and Canada/UK
+# clean these and Canada/UK variants
 # assign all other responses to "Other" - this is accurate enough for the task.
 
 # Send all country results to lower case and remove punctuation
@@ -350,3 +350,4 @@ write_csv(candy_all, here("clean_data", "candy_all.csv"))
 
 
 # Job done!!!! (?)
+

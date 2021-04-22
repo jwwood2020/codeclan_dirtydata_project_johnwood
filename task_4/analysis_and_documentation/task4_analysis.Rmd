@@ -5,12 +5,12 @@ output: html_notebook
 ---
 
 This task involves cleaning and analysis of 3 years data from the BoingBoing Candy survey.
-The data is particularly messy, particularly with free-text respon.
+The data is messy, particularly with free-text responses.
 The cleaning process is outlined below but the data cleaning script has more detail.
 
 #### Data Formatting
 
-- The task requires joining the datasets for 2015, 2016 and 2017. To enable this, each
+- The task requires joining the datasets for 2015, 2016 and 2017. To enable this each
 of the datasets was cut down to remove unneeded columns, column names were cleaned and
 renamed as required, and a unique id added to each record.
 - The raw data is in wide-format and was transformed into long-format. Individual columns
@@ -24,11 +24,11 @@ to capture potential duplicates.
 - There were a number of 'joke' entries that were not candy choices. It was decided to 
 remove these so that the analysis only considered 'real' candy.
 - Additionally, one catch-all choice was "Any Full Sized Candy". It was decided to 
-also remove this, as it distorted results on individual candy choices.
+also remove this as it distorted results on individual candy choices.
 
 _Age_
 
-- Age responses were free-text, so contained text, symbols etc which were removed.
+- Age responses were free-text so contained text, symbols etc which were removed.
 
 _Country_
 
@@ -52,9 +52,9 @@ candy_all <- read_csv(here("clean_data/candy_all.csv"))
 ```
 
 
-#### ANALYSIS OF DATA
+#### Data Analysis
 
- Q1. What is the total number of candy ratings given across the three years.
+ Q1. What is the total number of candy ratings given across the three years?
 
 ```{r}
 # A candy rating occurs when the column candy_rating is populated
@@ -91,7 +91,7 @@ most_ratings <- function(sentiment){
 }
 
 ```
-
+ Q3. For each of joy, despair and meh, which candy bar received the most of these ratings?
 ```{r message = FALSE}
 most_ratings("JOY")
 most_ratings("DESPAIR")
@@ -102,9 +102,9 @@ most_ratings("MEH")
 Q4. How many people rated Starburst as despair
 
 _This looks at the ratings in the candy_ratings column.
-Additional ratings for Starburst may be found in the free text responses. An
-initial analysis of these responses found only one record for Starburst, so no
-further work was done on this._
+Additional ratings for Starburst could potentially be found in the free text responses. 
+An initial analysis of these responses found only one record so no
+further work was done on this._   
 ```{r}
 
 candy_all %>% 
