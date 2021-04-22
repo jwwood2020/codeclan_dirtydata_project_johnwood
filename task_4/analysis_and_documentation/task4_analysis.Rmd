@@ -4,15 +4,47 @@ author: John Wood
 output: html_notebook
 ---
 
-```{r}
+This task involves cleaning and analysis of 3 years data from the BoingBoing Candy survey.
+The data is particularly messy, particularly with free-text respon.
+The cleaning process is outlined below but the data cleaning script has more detail.
+
+#### Data Formatting
+
+- The task requires joining the datasets for 2015, 2016 and 2017. To enable this, each
+of the datasets was cut down to remove unneeded columns, column names were cleaned and
+renamed as required, and a unique id added to each record.
+- The raw data is in wide-format and was transformed into long-format. Individual columns
+for each candy choice and rating were moved into a single column.
+
+#### Data Cleaning
+_Candy choice_
+
+- The offered candy choices were slightly different in each year so recoding was done
+to capture potential duplicates.
+- There were a number of 'joke' entries that were not candy choices. It was decided to 
+remove these so that the analysis only considered 'real' candy.
+- Additionally, one catch-all choice was "Any Full Sized Candy". It was decided to 
+also remove this, as it distorted results on individual candy choices.
+
+_Age_
+
+- Age responses were free-text, so contained text, symbols etc which were removed.
+
+_Country_
+
+- Country was a free-text option. The task asked specific questions about responses from 
+USA, UK, Canada and Other Countries so the cleaning focussed on the first three countries. 
+Most responses were variants of "USA". 
+
+
+```{r include = FALSE}
 library(tidyverse)
 library(here)
-
 ```
 
 
 
-```{r}
+```{r include = FALSE}
 
 candy_all <- read_csv(here("clean_data/candy_all.csv"))
 
@@ -20,8 +52,9 @@ candy_all <- read_csv(here("clean_data/candy_all.csv"))
 ```
 
 
-ANALYSIS
-# 1. What is the total number of candy ratings given across the three years. (number of candy ratings, not number of raters. Don’t count missing values)
+#### ANALYSIS OF DATA
+
+ Q1. What is the total number of candy ratings given across the three years.
 
 ```{r}
 # A candy rating occurs when the column candy_rating is populated
@@ -33,52 +66,52 @@ candy_all %>%
 ```
 
 
-ANALYSIS
-# Q2 What was the average age of people who are going out trick or treating and the average age of people not going trick or treating?
 
+ Q2. What was the average age of people who are going out trick or treating and the average age of people not going trick or treating?
 
 ```{r}
 candy_all %>% 
   distinct(id, .keep_all = TRUE) %>% 
   group_by(trick_or_treat) %>% 
   summarise(average_age = mean(age, na.rm = TRUE))
-
-
 ```
 
-
-#q3 For each of joy, despair and meh, which candy bar received the most of these ratings?
 
 ```{r}
-candy_all %>% 
-  mutate(joy = (candy_rating == "JOY"),
-         despair = (candy_rating == "DESPAIR"),
-         meh = (candy_rating == "MEH")
-         ) %>% 
-  group_by(candy_choice) %>% 
-  summarise(total_joy = sum(joy, na.rm = TRUE),
-            total_despair = sum(despair, na.rm = TRUE),
-            total_meh = sum(meh, na.rm = TRUE)
-            ) %>% 
-  slice_max(total_joy, n = 5) %>% 
-  slice_max(total_despair, n = 5) %>% 
-  slice_max(total_meh, n = 5)
- 
- #NEED TO REVISIT THIS 
+# function to output the top 3 ratings for the sentiment chosen.
+most_ratings <- function(sentiment){
   
+  candy_all %>% 
+    mutate(rating = (candy_rating == sentiment),
+           ) %>% 
+    group_by(candy_choice) %>% 
+   summarise(total = sum(rating, na.rm = TRUE),
+              ) %>% 
+  slice_max(total, n = 3)
+}
+
+```
+
+```{r message = FALSE}
+most_ratings("JOY")
+most_ratings("DESPAIR")
+most_ratings("MEH")
 ```
 
 
+Q4. How many people rated Starburst as despair
 
-How many people rated Starburst as despair
-
+_This looks at the ratings in the candy_ratings column.
+Additional ratings for Starburst may be found in the free text responses. An
+initial analysis of these responses found only one record for Starburst, so no
+further work was done on this._
 ```{r}
 
 candy_all %>% 
   filter(candy_choice == "starburst" & candy_rating == "DESPAIR") %>% 
   summarise(total_starburst_despair = n())
 ```
-```{r}
+```{r include = FALSE}
 # investigate free text entries in despair_other to find any mention of starburst 
 
 candy_all %>% 
@@ -90,9 +123,10 @@ candy_all %>%
 ```
 
 
-For the next three questions, count despair as -1, joy as +1 and meh as 0.
+
 ```{r}
- #create a new_rating variable using this system:
+# The next three questions use a rating system of count despair as -1, joy as +1 and meh as 0
+# Create a new_rating variable using this system:
 candy_all <- candy_all %>% 
  
   mutate(new_rating = case_when(
@@ -105,9 +139,8 @@ candy_all <- candy_all %>%
 ```
 
 
-What was the most popular candy bar by this rating system for each gender in the dataset?
-
-```{r}
+Q5. What was the most popular candy bar by this rating system for each gender in the dataset?
+```{r message = FALSE}
 candy_all %>% 
   filter(!is.na(gender)) %>% 
   group_by(gender, candy_choice) %>% 
@@ -115,24 +148,15 @@ candy_all %>%
   slice_max(total_new_rating)
 ```
 
-
-What was the most popular candy bar in each year?
-
-```{r}
+Q6. What was the most popular candy bar in each year?
+```{r message = FALSE}
 candy_all %>% 
   group_by(year, candy_choice) %>% 
   summarise(total_new_rating = sum(new_rating)) %>% 
   slice_max(total_new_rating)
 ```
-
-
-
-
-
-
-
-What was the most popular candy bar by this rating for people in US, Canada, UK and all other countries?
-```{r}
+Q7. What was the most popular candy bar by this rating for people in US, Canada, UK and all other countries?
+```{r message = FALSE}
 
 candy_all %>% 
   group_by(country, candy_choice) %>% 
@@ -140,4 +164,9 @@ candy_all %>%
   slice_max(total_new_rating)
 
 ```
+
+
+
+
+
 
