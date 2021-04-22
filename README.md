@@ -1,14 +1,16 @@
 # codeclan\_dirtydata\_project_johnwood
  
-## Project Brief	
+## Repository Description
+This repository contains the data and R files used in the CodeClan Dirty Data project.
 
 ## Libraries used
 1. tidyverse
 2. janitor
 3. here
+4. readxl
 
 ##Structure
-The repository is structured as follows:
+Each task has its own folder/project, structured as follows:
 
 ### 1. raw_data
 This folder contains the raw data supplied by CodeClan.
@@ -21,7 +23,4 @@ This folder contains .R scripts. The scripts should be run in the following orde
 This folder contains the clean data produced by the .R scripts.
 
 ### 4. analysis\_and\_documentation
-This folder contains the .RMD notebooks. The notebooks should be run in the following order:
-	1_data_analysis: analysis of the clean meteorites data
-	2_join_with_class: joins the meteorite class table with the clean data.
-
+This folder contains the .RMD notebooks which perform the analsyis and produce the results documentation.
